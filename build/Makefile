@@ -53,9 +53,13 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../src/main.cpp \
-		../src/MainWindow.cpp 
+		../src/MainWindow.cpp \
+		../src/TimerWindow.cpp \
+		../src/ChronoWindow.cpp 
 OBJECTS       = main.o \
-		MainWindow.o
+		MainWindow.o \
+		TimerWindow.o \
+		ChronoWindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -140,8 +144,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../src/Chronometer.pro ../src/MainWindow.h ../src/main.cpp \
-		../src/MainWindow.cpp
+		../src/Chronometer.pro ../src/MainWindow.h \
+		../src/TimerWindow.h \
+		../src/ChronoWindow.h ../src/main.cpp \
+		../src/MainWindow.cpp \
+		../src/TimerWindow.cpp \
+		../src/ChronoWindow.cpp
 QMAKE_TARGET  = Chronometer
 DESTDIR       = 
 TARGET        = Chronometer
@@ -339,8 +347,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/MainWindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/MainWindow.h ../src/TimerWindow.h ../src/ChronoWindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp ../src/TimerWindow.cpp ../src/ChronoWindow.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -389,11 +397,21 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
-main.o: ../src/main.cpp ../src/MainWindow.h
+main.o: ../src/main.cpp ../src/MainWindow.h \
+		../src/TimerWindow.h \
+		../src/ChronoWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
-MainWindow.o: ../src/MainWindow.cpp ../src/MainWindow.h
+MainWindow.o: ../src/MainWindow.cpp ../src/MainWindow.h \
+		../src/TimerWindow.h \
+		../src/ChronoWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o ../src/MainWindow.cpp
+
+TimerWindow.o: ../src/TimerWindow.cpp ../src/TimerWindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimerWindow.o ../src/TimerWindow.cpp
+
+ChronoWindow.o: ../src/ChronoWindow.cpp ../src/ChronoWindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChronoWindow.o ../src/ChronoWindow.cpp
 
 ####### Install
 

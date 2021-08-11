@@ -1,6 +1,11 @@
 QT += widgets
 TEMPLATE = app
 
-HEADERS += MainWindow.h
+HEADERS += MainWindow.h \
+           TimerWindow.h \
+           ChronoWindow.h
+
 SOURCES += main.cpp \
-           MainWindow.cpp
+           MainWindow.cpp \
+           TimerWindow.cpp \
+           ChronoWindow.cpp
