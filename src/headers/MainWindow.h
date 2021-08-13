@@ -1,6 +1,5 @@
 #include <QtWidgets>
-#include "TimerWindow.h"
-#include "ChronoWindow.h"
+#include "headers/TimerWindow.h"
 
 class MainWindow {
 public:
@@ -9,6 +8,4 @@ public:
 
 private:
     QTabWidget* window;
-    TimerWindow* timer_window;
-    ChronoWindow* chrono_window;
 };
