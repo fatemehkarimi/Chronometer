@@ -1,6 +1,8 @@
 #include <QLabel>
-#include <QTextEdit>
+#include <QLineEdit>
 #include <QHBoxLayout>
+#include <QSpacerItem>
+#include <QRegExpValidator>
 #include "headers/TimerWindow.h"
 
 TimerWindow::TimerWindow() {
@@ -11,11 +13,15 @@ TimerWindow::TimerWindow() {
     QHBoxLayout* timeline_layout = new QHBoxLayout();
     QHBoxLayout* control_layout = new QHBoxLayout();
 
-    QTextEdit* hour = new QTextEdit();
-    QTextEdit* minute = new QTextEdit();
-    QTextEdit* second = new QTextEdit();
+    QLineEdit* hour = this->getTimeInput();
+    QLineEdit* minute = this->getTimeInput();
+    QLineEdit* second = this->getTimeInput();
+
     QLabel* semi_colon1 = new QLabel(":");
     QLabel* semi_colon2 = new QLabel(":");
+
+    semi_colon1->setAlignment(Qt::AlignCenter);
+    semi_colon2->setAlignment(Qt::AlignCenter);
 
     this->designTimeLayout(time_layout);
 
@@ -49,4 +55,16 @@ void TimerWindow::designTimeLayout(QGridLayout* time_layout)
     time_layout->setColumnStretch(4, 1);
     time_layout->setColumnStretch(5, 3);
     time_layout->setColumnStretch(6, 3);
+}
+
+QLineEdit* TimerWindow::getTimeInput()
+{
+    QLineEdit* input = new QLineEdit();
+    input->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    input->setMaxLength(2);
+    input->setAlignment(Qt::AlignCenter);
+    QRegExp rx("[0-9]*");
+    QRegExpValidator* validator = new QRegExpValidator(rx, input);
+    input->setValidator(validator);
+    return input;
 }
