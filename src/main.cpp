@@ -1,6 +1,9 @@
 #include <QApplication>
 #include "headers/MainWindow.h"
 
+#include <QTime>
+#include "headers/Timer.h"
+
 using namespace std;
 
 int main(int argc, char *argv[])
