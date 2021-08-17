@@ -1,15 +1,15 @@
 #include <QApplication>
 #include "headers/MainWindow.h"
+#include "headers/TimeController.h"
 
-#include <QTime>
-#include "headers/Timer.h"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    MainWindow* window = new MainWindow(700, 700, "Chronometer");
+    Controller* time_controller = new TimeController();
+    MainWindow* window = new MainWindow(time_controller, 700, 700, "Chronometer");
     window->show();
     return app.exec();
 }

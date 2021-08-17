@@ -1,12 +1,12 @@
 #include <QtWidgets>
 #include "headers/MainWindow.h"
 
-MainWindow::MainWindow(int width, int height, QString title) {
+MainWindow::MainWindow(Controller* time_controller, int width, int height, QString title) {
     this->window = new QTabWidget();
     this->window->resize(width, height);
     this->window->setWindowTitle(title);
     
-    TimerWindow* timer_window = new TimerWindow();
+    TimerWindow* timer_window = new TimerWindow(time_controller);
     this->window->addTab(timer_window->getWindow(), "Timer");
 }
 

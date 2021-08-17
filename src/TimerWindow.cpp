@@ -5,7 +5,8 @@
 #include <QRegExpValidator>
 #include "headers/TimerWindow.h"
 
-TimerWindow::TimerWindow() {
+TimerWindow::TimerWindow(Controller* controller) {
+    this->controller = controller;
     this->timer_window = new QWidget();
 
     QVBoxLayout* main_layout = new QVBoxLayout(this->timer_window);
@@ -27,8 +28,15 @@ TimerWindow::TimerWindow() {
 
     QPushButton* start_button = new QPushButton("Start", this->timer_window);
     QPushButton* reset_button = new QPushButton("Reset", this->timer_window);
+
     start_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     reset_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QObject::connect(start_button, &QPushButton::clicked,
+                        this, &TimerWindow::handleStartButton);
+
+    QObject::connect(reset_button, &QPushButton::clicked,
+                        this, &TimerWindow::handleResetButton);
 
     this->designTimeLayout(time_layout);
 
@@ -90,4 +98,13 @@ QLineEdit* TimerWindow::getTimeInput()
 QProgressBar* TimerWindow::getProgressBar() {
     QProgressBar* progress_bar = new QProgressBar(this->timer_window);
     return progress_bar;
+}
+
+void TimerWindow::handleStartButton() {
+    // this->controller->setTime();
+    this->controller->start();
+}
+
+void TimerWindow::handleResetButton() {
+    this->controller->reset();
 }
