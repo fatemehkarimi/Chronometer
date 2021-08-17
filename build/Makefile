@@ -55,11 +55,13 @@ OBJECTS_DIR   = ./
 SOURCES       = ../src/main.cpp \
 		../src/MainWindow.cpp \
 		../src/TimerWindow.cpp \
-		../src/Timer.cpp moc_Timer.cpp
+		../src/Timer.cpp \
+		../src/TimeController.cpp moc_Timer.cpp
 OBJECTS       = main.o \
 		MainWindow.o \
 		TimerWindow.o \
 		Timer.o \
+		TimeController.o \
 		moc_Timer.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -147,10 +149,13 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../src/Chronometer.pro ../src/headers/MainWindow.h \
 		../src/headers/TimerWindow.h \
-		../src/headers/Timer.h ../src/main.cpp \
+		../src/headers/Timer.h \
+		../src/headers/Controller.h \
+		../src/headers/TimeController.h ../src/main.cpp \
 		../src/MainWindow.cpp \
 		../src/TimerWindow.cpp \
-		../src/Timer.cpp
+		../src/Timer.cpp \
+		../src/TimeController.cpp
 QMAKE_TARGET  = Chronometer
 DESTDIR       = 
 TARGET        = Chronometer
@@ -348,8 +353,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/headers/MainWindow.h ../src/headers/TimerWindow.h ../src/headers/Timer.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp ../src/TimerWindow.cpp ../src/Timer.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/headers/MainWindow.h ../src/headers/TimerWindow.h ../src/headers/Timer.h ../src/headers/Controller.h ../src/headers/TimeController.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp ../src/TimerWindow.cpp ../src/Timer.cpp ../src/TimeController.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -418,6 +423,11 @@ TimerWindow.o: ../src/TimerWindow.cpp ../src/headers/TimerWindow.h
 
 Timer.o: ../src/Timer.cpp ../src/headers/Timer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Timer.o ../src/Timer.cpp
+
+TimeController.o: ../src/TimeController.cpp ../src/headers/TimeController.h \
+		../src/headers/Timer.h \
+		../src/headers/Controller.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimeController.o ../src/TimeController.cpp
 
 moc_Timer.o: moc_Timer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Timer.o moc_Timer.cpp

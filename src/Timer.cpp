@@ -1,17 +1,16 @@
 #include "headers/Timer.h"
 
-Timer::Timer(QTime initial)
-{
+Timer::Timer() {
     this->base_timer = new QTimer(this);
     this->main_timer = new QTimer(this);
-    int msecs = QTime(0, 0, 0).msecsTo(initial);
-    this->interval = msecs;
 
     QObject::connect(this->main_timer, &QTimer::timeout, this, &Timer::timeout);
     QObject::connect(this->base_timer, &QTimer::timeout, this, &Timer::timeElapsed);
+}
 
-    this->start();
-
+void Timer::setInterval(QTime t) {
+    int msecs = QTime(0, 0, 0).msecsTo(t);
+    this->interval = msecs;
 }
 
 void Timer::timeout() {
@@ -26,4 +25,9 @@ void Timer::timeElapsed() {
 void Timer::start() {
     this->main_timer->start(this->interval);
     this->base_timer->start(1000);
+}
+
+void Timer::stop() {
+    this->main_timer->stop();
+    this->base_timer->stop();
 }

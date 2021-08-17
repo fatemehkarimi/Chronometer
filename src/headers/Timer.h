@@ -8,10 +8,12 @@ class Timer : public QObject
     Q_OBJECT
 
 public:
-    Timer(QTime initial);
+    Timer();
+    void setInterval(QTime t);
+    void start();
+    void stop();
 
 public slots:
-    void start();
     void timeout();
     void timeElapsed();
 
