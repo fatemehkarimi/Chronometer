@@ -146,3 +146,17 @@ void TimerWindow::handleStartButton() {
 void TimerWindow::handleResetButton() {
     this->controller->reset();
 }
+
+void TimerWindow::timeElapsed(QTime remaining) {
+    this->updateTime(remaining);
+}
+
+void TimerWindow::updateTime(QTime t) {
+    QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
+    QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
+    QLineEdit* second = this->timer_window->findChild <QLineEdit*>("second");
+
+    hour->setText(QString::number(t.hour()));
+    minute->setText(QString::number(t.minute()));
+    second->setText(QString::number(t.second()));
+}

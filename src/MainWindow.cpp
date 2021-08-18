@@ -6,10 +6,14 @@ MainWindow::MainWindow(Controller* time_controller, int width, int height, QStri
     this->window->resize(width, height);
     this->window->setWindowTitle(title);
     
-    TimerWindow* timer_window = new TimerWindow(time_controller);
+    timer_window = new TimerWindow(time_controller);
     this->window->addTab(timer_window->getWindow(), "Timer");
 }
 
 void MainWindow::show() {
     this->window->show();
+}
+
+TimerWindow* MainWindow::getTimerWindow() {
+    return this->timer_window;
 }

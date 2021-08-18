@@ -392,11 +392,13 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_TimerWindow.cpp moc_Timer.cpp
 moc_TimerWindow.cpp: ../src/headers/TimerWindow.h \
 		../src/headers/Controller.h \
+		../src/headers/TimerObserver.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/fatemeh/WorkSpace/Chronometer/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/fatemeh/WorkSpace/Chronometer/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/headers/TimerWindow.h -o moc_TimerWindow.cpp
 
 moc_Timer.cpp: ../src/headers/Timer.h \
+		../src/headers/TimerObserver.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/fatemeh/WorkSpace/Chronometer/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/fatemeh/WorkSpace/Chronometer/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/headers/Timer.h -o moc_Timer.cpp
@@ -417,27 +419,32 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-main.o: ../src/main.cpp ../src/headers/MainWindow.h \
+main.o: ../src/main.cpp ../src/headers/Timer.h \
+		../src/headers/TimerObserver.h \
+		../src/headers/MainWindow.h \
 		../src/headers/Controller.h \
 		../src/headers/TimerWindow.h \
-		../src/headers/TimeController.h \
-		../src/headers/Timer.h
+		../src/headers/TimeController.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 MainWindow.o: ../src/MainWindow.cpp ../src/headers/MainWindow.h \
 		../src/headers/Controller.h \
-		../src/headers/TimerWindow.h
+		../src/headers/TimerWindow.h \
+		../src/headers/TimerObserver.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o ../src/MainWindow.cpp
 
 TimerWindow.o: ../src/TimerWindow.cpp ../src/headers/TimerWindow.h \
-		../src/headers/Controller.h
+		../src/headers/Controller.h \
+		../src/headers/TimerObserver.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimerWindow.o ../src/TimerWindow.cpp
 
-Timer.o: ../src/Timer.cpp ../src/headers/Timer.h
+Timer.o: ../src/Timer.cpp ../src/headers/Timer.h \
+		../src/headers/TimerObserver.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Timer.o ../src/Timer.cpp
 
 TimeController.o: ../src/TimeController.cpp ../src/headers/TimeController.h \
 		../src/headers/Timer.h \
+		../src/headers/TimerObserver.h \
 		../src/headers/Controller.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimeController.o ../src/TimeController.cpp
 

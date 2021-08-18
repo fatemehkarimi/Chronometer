@@ -1,8 +1,8 @@
 #include "headers/TimeController.h"
 
 
-TimeController::TimeController() {
-    this->timer = new Timer();
+TimeController::TimeController(Timer* t) {
+    this->timer = t;
 }
 
 void TimeController::setTime(QTime t) {

@@ -20,6 +20,9 @@ void Timer::timeout() {
 void Timer::timeElapsed() {
     if(!this->main_timer->isActive())
         this->base_timer->stop();
+    QTime remaining(0, 0, 0);
+    remaining = remaining.addSecs(int(this->main_timer->remainingTime() / 1000));
+    emit remainingTime(remaining);
 }
 
 void Timer::start() {
@@ -30,4 +33,8 @@ void Timer::start() {
 void Timer::stop() {
     this->main_timer->stop();
     this->base_timer->stop();
+}
+
+void Timer::registerRemainingTimeObserver(TimerObserver* observer) {
+    QObject::connect(this, &Timer::remainingTime, observer, &TimerObserver::timeElapsed);
 }
