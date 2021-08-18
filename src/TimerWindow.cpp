@@ -14,12 +14,6 @@ TimerWindow::TimerWindow(Controller* controller) {
     QHBoxLayout* timeline_layout = new QHBoxLayout();
     QHBoxLayout* control_layout = new QHBoxLayout();
 
-    // main_layout->setObjectName("main_layout");
-    // time_layout->setObjectName("time_layout");
-    // timeline_layout->setObjectName("timeline_layout");
-    // control_layout->setObjectName("control_layout");
-
-
     QLineEdit* hour = this->setupTimeInput("hour");
     QLineEdit* minute = this->setupTimeInput("minute");
     QLineEdit* second = this->setupTimeInput("second");
@@ -116,38 +110,35 @@ QTime TimerWindow::readInput() {
     int value_m = minute->text().toInt();
     int value_s = second->text().toInt();
 
-    QTime t(0, 0, 0);
-    if(!validateHour(value_h))
-        this->rejectInput(hour);
-
-    if(!validateMinute(value_m))
-        this->rejectInput(minute);
-
-    if(!validateSecond(value_s))
-        this->rejectInput(second);
-
-    t.setHMS(value_h, value_m, value_s);
-    return t;
+    return this->makeInputStandard(value_h, value_m, value_s);
 }
 
-bool TimerWindow::validateHour(int h) {
-    return (h >= 0 && h < 23);
+QTime TimerWindow::makeInputStandard(int h, int m, int s) {
+    m += (s / 60);
+    s = s % 60;
+
+    h += (m / 60);
+    m = m % 60;
+
+    // maximum supported time is 23 hour
+    if(h >= 24){
+        this->rejectInput();
+        return QTime(0, 0, 0);
+    }
+    return QTime(h, m, s);
 }
 
-bool TimerWindow::validateMinute(int m) {
-    return (m >= 0 && m < 60);
-}
-
-bool TimerWindow::validateSecond(int s) {
-    return (s >= 0 && s < 60);
-}
-
-void TimerWindow::rejectInput(QLineEdit* input) {
-    input->setStyleSheet("color: red");
+void TimerWindow::rejectInput() {
+    QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
+    hour->setStyleSheet("color: red");
 }
 
 void TimerWindow::handleStartButton() {
     QTime input = this->readInput();
+    if(input == QTime(0, 0, 0)){
+        this->rejectInput();
+        return;
+    }
     this->controller->setTime(input);
     this->controller->start();
 }
