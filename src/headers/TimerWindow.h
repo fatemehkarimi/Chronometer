@@ -14,6 +14,10 @@ public:
     QLineEdit* setupTimeInput(QString object_name);
     QProgressBar* getProgressBar();
     QTime readInput();
+    bool validateHour(int h);
+    bool validateMinute(int m);
+    bool validateSecond(int s);
+    void rejectInput(QLineEdit* input);
 
 public slots:
     void handleStartButton();

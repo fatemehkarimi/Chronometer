@@ -107,7 +107,7 @@ QProgressBar* TimerWindow::getProgressBar() {
     return progress_bar;
 }
 
-QTime TimerWindow::readInput(){
+QTime TimerWindow::readInput() {
     QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
     QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
     QLineEdit* second = this->timer_window->findChild <QLineEdit*>("second");
@@ -116,7 +116,34 @@ QTime TimerWindow::readInput(){
     int value_m = minute->text().toInt();
     int value_s = second->text().toInt();
 
-    return QTime(value_h, value_m, value_s);
+    QTime t(0, 0, 0);
+    if(!validateHour(value_h))
+        this->rejectInput(hour);
+
+    if(!validateMinute(value_m))
+        this->rejectInput(minute);
+
+    if(!validateSecond(value_s))
+        this->rejectInput(second);
+
+    t.setHMS(value_h, value_m, value_s);
+    return t;
+}
+
+bool TimerWindow::validateHour(int h) {
+    return (h >= 0 && h < 23);
+}
+
+bool TimerWindow::validateMinute(int m) {
+    return (m >= 0 && m < 60);
+}
+
+bool TimerWindow::validateSecond(int s) {
+    return (s >= 0 && s < 60);
+}
+
+void TimerWindow::rejectInput(QLineEdit* input) {
+    input->setStyleSheet("color: red");
 }
 
 void TimerWindow::handleStartButton() {
