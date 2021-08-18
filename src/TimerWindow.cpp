@@ -14,9 +14,15 @@ TimerWindow::TimerWindow(Controller* controller) {
     QHBoxLayout* timeline_layout = new QHBoxLayout();
     QHBoxLayout* control_layout = new QHBoxLayout();
 
-    QLineEdit* hour = this->getTimeInput();
-    QLineEdit* minute = this->getTimeInput();
-    QLineEdit* second = this->getTimeInput();
+    // main_layout->setObjectName("main_layout");
+    // time_layout->setObjectName("time_layout");
+    // timeline_layout->setObjectName("timeline_layout");
+    // control_layout->setObjectName("control_layout");
+
+
+    QLineEdit* hour = this->setupTimeInput("hour");
+    QLineEdit* minute = this->setupTimeInput("minute");
+    QLineEdit* second = this->setupTimeInput("second");
 
     QLabel* semi_colon1 = new QLabel(":");
     QLabel* semi_colon2 = new QLabel(":");
@@ -82,16 +88,17 @@ void TimerWindow::designTimeLayout(QGridLayout* time_layout)
     time_layout->setColumnStretch(6, 3);
 }
 
-QLineEdit* TimerWindow::getTimeInput()
+QLineEdit* TimerWindow::setupTimeInput(QString object_name)
 {
     QLineEdit* input = new QLineEdit();
+    input->setObjectName(object_name);
     input->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     input->setMaxLength(2);
     input->setAlignment(Qt::AlignCenter);
     QRegExp rx("[0-9]*");
     QRegExpValidator* validator = new QRegExpValidator(rx, input);
     input->setValidator(validator);
-    input->setPlaceholderText("00");
+    input->setText("00");
     return input;
 }
 
@@ -100,8 +107,21 @@ QProgressBar* TimerWindow::getProgressBar() {
     return progress_bar;
 }
 
+QTime TimerWindow::readInput(){
+    QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
+    QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
+    QLineEdit* second = this->timer_window->findChild <QLineEdit*>("second");
+
+    int value_h = hour->text().toInt();
+    int value_m = minute->text().toInt();
+    int value_s = second->text().toInt();
+
+    return QTime(value_h, value_m, value_s);
+}
+
 void TimerWindow::handleStartButton() {
-    // this->controller->setTime();
+    QTime input = this->readInput();
+    this->controller->setTime(input);
     this->controller->start();
 }
 

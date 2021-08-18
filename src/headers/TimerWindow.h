@@ -11,8 +11,9 @@ public:
     TimerWindow(Controller* controller);
     QWidget* getWindow();
     void designTimeLayout(QGridLayout* time_layout);
-    QLineEdit* getTimeInput();
+    QLineEdit* setupTimeInput(QString object_name);
     QProgressBar* getProgressBar();
+    QTime readInput();
 
 public slots:
     void handleStartButton();
