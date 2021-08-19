@@ -27,6 +27,9 @@ void Timer::timeElapsed() {
 
 void Timer::start() {
     this->base_timer->start(1000);
+    QTime remaining(0, 0, 0);
+    remaining = remaining.addSecs(this->interval);
+    emit remainingTime(remaining);
 }
 
 void Timer::stop() {
