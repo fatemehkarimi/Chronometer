@@ -4,11 +4,10 @@
 
 class MainWindow {
 public:
-    MainWindow(Controller * time_controller, int width, int height, QString title);
-    TimerWindow* getTimerWindow();
+    MainWindow(int width, int height, QString title);
     void show();
+    void registerWindow(QWidget* window, QString tab_name);
 
 private:
     QTabWidget* window;
-    TimerWindow* timer_window;
 };

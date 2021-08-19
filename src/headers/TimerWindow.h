@@ -1,6 +1,10 @@
+#ifndef TIMERWINDOW_H
+#define TIMERWINDOW_H
+
 #include <QtWidgets>
 #include <QGridLayout>
 #include <QProgressBar>
+#include "headers/Timer.h"
 #include "headers/Controller.h"
 #include "headers/TimerObserver.h"
 
@@ -9,7 +13,7 @@ class TimerWindow : public TimerObserver
     Q_OBJECT
 
 public:
-    TimerWindow(Controller* controller);
+    TimerWindow(Controller* controller, Timer* timer);
     QWidget* getWindow();
     void designTimeLayout(QGridLayout* time_layout);
     QLineEdit* setupTimeInput(QString object_name);
@@ -25,6 +29,9 @@ public slots:
     virtual void timeElapsed(QTime remaining);
 
 private:
+    Timer* timer;
     QWidget* timer_window;
     Controller* controller;
 };
+
+#endif

@@ -3,6 +3,7 @@
 
 #include "headers/Timer.h"
 #include "headers/Controller.h"
+#include "headers/TimerWindow.h"
 
 class TimeController : public Controller
 {
@@ -12,9 +13,11 @@ public:
     virtual void start();
     virtual void stop();
     virtual void reset();
+    virtual QWidget* getView();
 
 private:
     Timer* timer;
+    TimerWindow* timer_window;
 };
 
 #endif

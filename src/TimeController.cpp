@@ -1,8 +1,8 @@
 #include "headers/TimeController.h"
 
-
 TimeController::TimeController(Timer* t) {
     this->timer = t;
+    this->timer_window = new TimerWindow(this, t);
 }
 
 void TimeController::setTime(QTime t) {
@@ -18,3 +18,7 @@ void TimeController::stop() {
 }
 
 void TimeController::reset() {}
+
+QWidget* TimeController::getView() {
+    return this->timer_window->getWindow();
+}

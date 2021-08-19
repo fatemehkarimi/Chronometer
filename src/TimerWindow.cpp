@@ -5,10 +5,12 @@
 #include <QRegExpValidator>
 #include "headers/TimerWindow.h"
 
-TimerWindow::TimerWindow(Controller* controller) {
+TimerWindow::TimerWindow(Controller* controller, Timer* timer) {
+    this->timer = timer;
     this->controller = controller;
-    this->timer_window = new QWidget();
+    this->timer->registerRemainingTimeObserver(this);
 
+    this->timer_window = new QWidget();
     QVBoxLayout* main_layout = new QVBoxLayout(this->timer_window);
     QGridLayout* time_layout = new QGridLayout();
     QHBoxLayout* timeline_layout = new QHBoxLayout();
