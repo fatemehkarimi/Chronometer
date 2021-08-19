@@ -28,7 +28,6 @@ signals:
 private:
     int interval;
     QThread worker;
-    QTimer* main_timer;
     QTimer* base_timer;
 };
 
