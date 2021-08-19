@@ -20,8 +20,9 @@ public:
     QProgressBar* getProgressBar();
     QTime readInput();
     void rejectInput();
-    QTime makeInputStandard(int h, int m, int s);
+    QTime makeTimeInputStandard(int h, int m, int s);
     void updateTime(QTime t);
+    QString makeOutputStandard(int o);
 
 public slots:
     void handleStartButton();

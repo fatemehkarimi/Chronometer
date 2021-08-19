@@ -112,10 +112,10 @@ QTime TimerWindow::readInput() {
     int value_m = minute->text().toInt();
     int value_s = second->text().toInt();
 
-    return this->makeInputStandard(value_h, value_m, value_s);
+    return this->makeTimeInputStandard(value_h, value_m, value_s);
 }
 
-QTime TimerWindow::makeInputStandard(int h, int m, int s) {
+QTime TimerWindow::makeTimeInputStandard(int h, int m, int s) {
     m += (s / 60);
     s = s % 60;
 
@@ -153,12 +153,19 @@ void TimerWindow::timeElapsed(QTime remaining) {
     this->updateTime(remaining);
 }
 
+QString TimerWindow::makeOutputStandard(int o) {
+    QString r = QString::number(o);
+    if(o < 10)
+        r = "0" + r;
+    return r;
+}
+
 void TimerWindow::updateTime(QTime t) {
     QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
     QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
     QLineEdit* second = this->timer_window->findChild <QLineEdit*>("second");
 
-    hour->setText(QString::number(t.hour()));
-    minute->setText(QString::number(t.minute()));
-    second->setText(QString::number(t.second()));
+    hour->setText(this->makeOutputStandard(t.hour()));
+    minute->setText(this->makeOutputStandard(t.minute()));
+    second->setText(this->makeOutputStandard(t.second()));
 }
