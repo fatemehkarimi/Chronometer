@@ -23,6 +23,9 @@ public:
     QTime makeTimeInputStandard(int h, int m, int s);
     void updateTime(QTime t);
     QString makeOutputStandard(int o);
+    void handleStartState();
+    void handleStopState();
+    void setStartButtonText();
 
 public slots:
     void handleStartButton();
@@ -33,6 +36,7 @@ private:
     Timer* timer;
     QWidget* timer_window;
     Controller* controller;
+    bool isStartButton = true;
 };
 
 #endif

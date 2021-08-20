@@ -2,6 +2,7 @@
 
 Timer::Timer() {
     this->base_timer = new QTimer(this);
+    this->base_timer->setTimerType(Qt::PreciseTimer);
     QObject::connect(this->base_timer, &QTimer::timeout, this, &Timer::timeElapsed);
 }
 
@@ -19,20 +20,35 @@ void Timer::timeElapsed() {
         this->timeout();
     else
         this->interval -= 1;
-        
+
+    if(this->base_timer->interval() != UNIT_INTERVAL){
+        this->base_timer->setInterval(UNIT_INTERVAL);
+        this->base_timer->start();
+    }
+
     QTime remaining(0, 0, 0);
     remaining = remaining.addSecs(this->interval);
     emit remainingTime(remaining);
 }
 
 void Timer::start() {
-    this->base_timer->start(1000);
+    if(this->remaining_time > 0){
+        this->base_timer->setInterval(remaining_time);
+        this->base_timer->start();
+        this->remaining_time = 0;
+    }
+    else {
+        this->base_timer->setInterval(UNIT_INTERVAL);
+        this->base_timer->start();
+    }
+
     QTime remaining(0, 0, 0);
     remaining = remaining.addSecs(this->interval);
     emit remainingTime(remaining);
 }
 
 void Timer::stop() {
+    this->remaining_time = this->base_timer->remainingTime();
     this->base_timer->stop();
 }
 

@@ -26,7 +26,9 @@ signals:
     void remainingTime(QTime t);
     
 private:
+    const int UNIT_INTERVAL = 1000;
     int interval;
+    int remaining_time = 0;
     QThread worker;
     QTimer* base_timer;
 };

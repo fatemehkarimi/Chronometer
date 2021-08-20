@@ -31,6 +31,8 @@ TimerWindow::TimerWindow(Controller* controller, Timer* timer) {
     QPushButton* start_button = new QPushButton("Start", this->timer_window);
     QPushButton* reset_button = new QPushButton("Reset", this->timer_window);
 
+    start_button->setObjectName("start");
+
     start_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     reset_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -136,6 +138,16 @@ void TimerWindow::rejectInput() {
 }
 
 void TimerWindow::handleStartButton() {
+    if(this->isStartButton)
+        handleStartState();
+    else
+        handleStopState();
+
+    this->isStartButton = !this->isStartButton;
+    this->setStartButtonText();
+}
+
+void TimerWindow::handleStartState() {
     QTime input = this->readInput();
     if(input == QTime(0, 0, 0)){
         this->rejectInput();
@@ -143,6 +155,18 @@ void TimerWindow::handleStartButton() {
     }
     this->controller->setTime(input);
     this->controller->start();
+}
+
+void TimerWindow::handleStopState() {
+    this->controller->stop();
+}
+
+void TimerWindow::setStartButtonText() {
+    QPushButton* start_btn = this->timer_window->findChild <QPushButton*>("start");
+    if(this->isStartButton)
+        start_btn->setText("Start");
+    else
+        start_btn->setText("Stop");
 }
 
 void TimerWindow::handleResetButton() {
