@@ -32,14 +32,14 @@ struct qt_meta_stringdata_Timer_t {
 static const qt_meta_stringdata_Timer_t qt_meta_stringdata_Timer = {
     {
 QT_MOC_LITERAL(0, 0, 5), // "Timer"
-QT_MOC_LITERAL(1, 6, 13), // "remainingTime"
-QT_MOC_LITERAL(2, 20, 0), // ""
-QT_MOC_LITERAL(3, 21, 1), // "t"
-QT_MOC_LITERAL(4, 23, 7), // "timeout"
+QT_MOC_LITERAL(1, 6, 7), // "timeout"
+QT_MOC_LITERAL(2, 14, 0), // ""
+QT_MOC_LITERAL(3, 15, 13), // "remainingTime"
+QT_MOC_LITERAL(4, 29, 1), // "t"
 QT_MOC_LITERAL(5, 31, 11) // "timeElapsed"
 
     },
-    "Timer\0remainingTime\0\0t\0timeout\0"
+    "Timer\0timeout\0\0remainingTime\0t\0"
     "timeElapsed"
 };
 #undef QT_MOC_LITERAL
@@ -55,20 +55,20 @@ static const uint qt_meta_data_Timer[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   29,    2, 0x06 /* Public */,
+       1,    0,   29,    2, 0x06 /* Public */,
+       3,    1,   30,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   32,    2, 0x0a /* Public */,
        5,    0,   33,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QTime,    3,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QTime,    4,
 
  // slots: parameters
-    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -80,17 +80,24 @@ void Timer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         auto *_t = static_cast<Timer *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->remainingTime((*reinterpret_cast< QTime(*)>(_a[1]))); break;
-        case 1: _t->timeout(); break;
+        case 0: _t->timeout(); break;
+        case 1: _t->remainingTime((*reinterpret_cast< QTime(*)>(_a[1]))); break;
         case 2: _t->timeElapsed(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
+            using _t = void (Timer::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Timer::timeout)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
             using _t = void (Timer::*)(QTime );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Timer::remainingTime)) {
-                *result = 0;
+                *result = 1;
                 return;
             }
         }
@@ -138,10 +145,16 @@ int Timer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
+void Timer::timeout()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
 void Timer::remainingTime(QTime _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

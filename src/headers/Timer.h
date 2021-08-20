@@ -16,13 +16,13 @@ public:
     void setInterval(QTime t);
     void start();
     void stop();
-    void registerRemainingTimeObserver(TimerObserver* observer);
+    void registerTimerObserver(TimerObserver* observer);
 
 public slots:
-    void timeout();
     void timeElapsed();
 
 signals:
+    void timeout();
     void remainingTime(QTime t);
     
 private:

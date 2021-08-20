@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_TimerWindow_t {
-    QByteArrayData data[6];
-    char stringdata0[71];
+    QByteArrayData data[7];
+    char stringdata0[84];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,11 +36,13 @@ QT_MOC_LITERAL(1, 12, 17), // "handleStartButton"
 QT_MOC_LITERAL(2, 30, 0), // ""
 QT_MOC_LITERAL(3, 31, 17), // "handleResetButton"
 QT_MOC_LITERAL(4, 49, 11), // "timeElapsed"
-QT_MOC_LITERAL(5, 61, 9) // "remaining"
+QT_MOC_LITERAL(5, 61, 9), // "remaining"
+QT_MOC_LITERAL(6, 71, 12) // "timerTimeout"
 
     },
     "TimerWindow\0handleStartButton\0\0"
-    "handleResetButton\0timeElapsed\0remaining"
+    "handleResetButton\0timeElapsed\0remaining\0"
+    "timerTimeout"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,7 +52,7 @@ static const uint qt_meta_data_TimerWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -58,14 +60,16 @@ static const uint qt_meta_data_TimerWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   29,    2, 0x0a /* Public */,
-       3,    0,   30,    2, 0x0a /* Public */,
-       4,    1,   31,    2, 0x0a /* Public */,
+       1,    0,   34,    2, 0x0a /* Public */,
+       3,    0,   35,    2, 0x0a /* Public */,
+       4,    1,   36,    2, 0x0a /* Public */,
+       6,    0,   39,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::QTime,    5,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -79,6 +83,7 @@ void TimerWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 0: _t->handleStartButton(); break;
         case 1: _t->handleResetButton(); break;
         case 2: _t->timeElapsed((*reinterpret_cast< QTime(*)>(_a[1]))); break;
+        case 3: _t->timerTimeout(); break;
         default: ;
         }
     }
@@ -113,13 +118,13 @@ int TimerWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 3;
+        _id -= 4;
     }
     return _id;
 }

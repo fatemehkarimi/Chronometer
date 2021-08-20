@@ -31,6 +31,7 @@ public slots:
     void handleStartButton();
     void handleResetButton();
     virtual void timeElapsed(QTime remaining);
+    virtual void timerTimeout();
 
 private:
     Timer* timer;

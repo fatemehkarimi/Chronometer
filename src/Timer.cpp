@@ -11,13 +11,12 @@ void Timer::setInterval(QTime t) {
     this->interval = msecs / 1000;
 }
 
-void Timer::timeout() {
-    this->base_timer->stop();
-}
-
 void Timer::timeElapsed() {
-    if(this->interval == 0)
-        this->timeout();
+    if(this->interval == 0) {
+        this->base_timer->stop();
+        emit timeout();
+        return;
+    }
     else
         this->interval -= 1;
 
@@ -52,6 +51,7 @@ void Timer::stop() {
     this->base_timer->stop();
 }
 
-void Timer::registerRemainingTimeObserver(TimerObserver* observer) {
+void Timer::registerTimerObserver(TimerObserver* observer) {
     QObject::connect(this, &Timer::remainingTime, observer, &TimerObserver::timeElapsed);
+    QObject::connect(this, &Timer::timeout, observer, &TimerObserver::timerTimeout);
 }

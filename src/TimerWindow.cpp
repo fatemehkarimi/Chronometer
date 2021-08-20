@@ -8,7 +8,7 @@
 TimerWindow::TimerWindow(Controller* controller, Timer* timer) {
     this->timer = timer;
     this->controller = controller;
-    this->timer->registerRemainingTimeObserver(this);
+    this->timer->registerTimerObserver(this);
 
     this->timer_window = new QWidget();
     QVBoxLayout* main_layout = new QVBoxLayout(this->timer_window);
@@ -192,4 +192,9 @@ void TimerWindow::updateTime(QTime t) {
     hour->setText(this->makeOutputStandard(t.hour()));
     minute->setText(this->makeOutputStandard(t.minute()));
     second->setText(this->makeOutputStandard(t.second()));
+}
+
+void TimerWindow::timerTimeout() {
+    this->isStartButton = true;
+    this->setStartButtonText();
 }
