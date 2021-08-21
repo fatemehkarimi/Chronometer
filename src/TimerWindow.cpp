@@ -2,6 +2,7 @@
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QMessageBox>
 #include <QRegExpValidator>
 #include "headers/TimerWindow.h"
 
@@ -126,47 +127,16 @@ QTime TimerWindow::makeTimeInputStandard(int h, int m, int s) {
 
     // maximum supported time is 23 hour
     if(h >= 24){
-        this->rejectInput();
+        QMessageBox msg_box;
+        msg_box.setText("Timer for more than 24 hours is not supported");
+        msg_box.exec();
         return QTime(0, 0, 0);
     }
     return QTime(h, m, s);
 }
 
-void TimerWindow::rejectInput() {
-    QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
-    hour->setStyleSheet("color: red");
-}
-
 void TimerWindow::handleStartButton() {
-    if(this->isStartButton)
-        handleStartState();
-    else
-        handleStopState();
-
-    this->isStartButton = !this->isStartButton;
-    this->setStartButtonText();
-}
-
-void TimerWindow::handleStartState() {
-    QTime input = this->readInput();
-    if(input == QTime(0, 0, 0)){
-        this->rejectInput();
-        return;
-    }
-    this->controller->setTime(input);
     this->controller->start();
-}
-
-void TimerWindow::handleStopState() {
-    this->controller->stop();
-}
-
-void TimerWindow::setStartButtonText() {
-    QPushButton* start_btn = this->timer_window->findChild <QPushButton*>("start");
-    if(this->isStartButton)
-        start_btn->setText("Start");
-    else
-        start_btn->setText("Stop");
 }
 
 void TimerWindow::handleResetButton() {
@@ -184,6 +154,16 @@ QString TimerWindow::makeOutputStandard(int o) {
     return r;
 }
 
+void TimerWindow::setStartButton() {
+    QPushButton* start_button = this->timer_window->findChild<QPushButton*>("start");
+    start_button->setText("Start");
+}
+
+void TimerWindow::setStopButton() {
+    QPushButton* start_button = this->timer_window->findChild<QPushButton*>("start");
+    start_button->setText("Stop");
+}
+
 void TimerWindow::updateTime(QTime t) {
     QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
     QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
@@ -195,6 +175,4 @@ void TimerWindow::updateTime(QTime t) {
 }
 
 void TimerWindow::timerTimeout() {
-    this->isStartButton = true;
-    this->setStartButtonText();
 }

@@ -16,6 +16,7 @@ public:
     void setInterval(QTime t);
     void start();
     void stop();
+    void clear();
     void registerTimerObserver(TimerObserver* observer);
 
 public slots:
@@ -29,7 +30,6 @@ private:
     const int UNIT_INTERVAL = 1000;
     int interval;
     int remaining_time = 0;
-    QThread worker;
     QTimer* base_timer;
 };
 

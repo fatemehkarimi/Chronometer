@@ -19,13 +19,11 @@ public:
     QLineEdit* setupTimeInput(QString object_name);
     QProgressBar* getProgressBar();
     QTime readInput();
-    void rejectInput();
     QTime makeTimeInputStandard(int h, int m, int s);
     void updateTime(QTime t);
     QString makeOutputStandard(int o);
-    void handleStartState();
-    void handleStopState();
-    void setStartButtonText();
+    void setStartButton();
+    void setStopButton();
 
 public slots:
     void handleStartButton();
@@ -37,7 +35,6 @@ private:
     Timer* timer;
     QWidget* timer_window;
     Controller* controller;
-    bool isStartButton = true;
 };
 
 #endif

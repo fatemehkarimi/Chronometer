@@ -51,6 +51,11 @@ void Timer::stop() {
     this->base_timer->stop();
 }
 
+void Timer::clear() {
+    this->remaining_time = 0;
+    this->interval = 0;
+}
+
 void Timer::registerTimerObserver(TimerObserver* observer) {
     QObject::connect(this, &Timer::remainingTime, observer, &TimerObserver::timeElapsed);
     QObject::connect(this, &Timer::timeout, observer, &TimerObserver::timerTimeout);
