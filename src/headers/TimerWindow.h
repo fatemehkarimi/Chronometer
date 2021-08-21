@@ -17,13 +17,15 @@ public:
     QWidget* getWindow();
     void designTimeLayout(QGridLayout* time_layout);
     QLineEdit* setupTimeInput(QString object_name);
-    QProgressBar* getProgressBar();
     QTime readInput();
     QTime makeTimeInputStandard(int h, int m, int s);
     void updateTime(QTime t);
     QString makeOutputStandard(int o);
     void setStartButton();
     void setStopButton();
+    void updateProgressBar(int value);
+    void resetProgressBar();
+    void setProgressBarMaximum(int max);
 
 public slots:
     void handleStartButton();

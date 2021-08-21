@@ -13,7 +13,8 @@ void TimeController::setTime(QTime t) {
 
 void TimeController::start() {
     QTime t = this->timer_window->readInput();
-    if(t == QTime(0, 0, 0))
+    QTime zero_t = QTime(0, 0, 0);
+    if(t == zero_t)
         return;
 
     if(!this->isTimerPendig) {
@@ -22,8 +23,10 @@ void TimeController::start() {
         this->isTimerPendig = true;
         this->isStartCommand = false;
         timer_window->setStopButton();
+        timer_window->resetProgressBar();
+        timer_window->setProgressBarMaximum(zero_t.msecsTo(t) / 1000);
     }
-    else { 
+    else {
         if(this->isStartCommand){
             this->timer->start();
             timer_window->setStopButton();
@@ -48,6 +51,7 @@ void TimeController::reset() {
     this->isTimerPendig = false;
     this->isStartCommand = true;
     timer_window->setStartButton();
+    timer_window->resetProgressBar();
 }
 
 QWidget* TimeController::getView() {

@@ -24,7 +24,8 @@ TimerWindow::TimerWindow(Controller* controller, Timer* timer) {
     QLabel* semi_colon1 = new QLabel(":");
     QLabel* semi_colon2 = new QLabel(":");
 
-    QProgressBar* time_line = this->getProgressBar();
+    QProgressBar* time_line = new QProgressBar(this->timer_window);
+    time_line->setObjectName("progress_bar");
 
     semi_colon1->setAlignment(Qt::AlignCenter);
     semi_colon2->setAlignment(Qt::AlignCenter);
@@ -101,11 +102,6 @@ QLineEdit* TimerWindow::setupTimeInput(QString object_name)
     return input;
 }
 
-QProgressBar* TimerWindow::getProgressBar() {
-    QProgressBar* progress_bar = new QProgressBar(this->timer_window);
-    return progress_bar;
-}
-
 QTime TimerWindow::readInput() {
     QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
     QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
@@ -145,6 +141,7 @@ void TimerWindow::handleResetButton() {
 
 void TimerWindow::timeElapsed(QTime remaining) {
     this->updateTime(remaining);
+    this->updateProgressBar(QTime(0, 0, 0).msecsTo(remaining) / 1000);
 }
 
 QString TimerWindow::makeOutputStandard(int o) {
@@ -172,6 +169,22 @@ void TimerWindow::updateTime(QTime t) {
     hour->setText(this->makeOutputStandard(t.hour()));
     minute->setText(this->makeOutputStandard(t.minute()));
     second->setText(this->makeOutputStandard(t.second()));
+}
+
+void TimerWindow::updateProgressBar(int value) {
+    QProgressBar* progress_bar = this->timer_window->findChild<QProgressBar*>("progress_bar");
+    progress_bar->setValue(progress_bar->maximum() - value);
+}
+
+void TimerWindow::resetProgressBar() {
+    QProgressBar* progress_bar = this->timer_window->findChild<QProgressBar*>("progress_bar");
+    progress_bar->setValue(0);
+}
+
+void TimerWindow::setProgressBarMaximum(int max) {
+    QProgressBar* progress_bar = this->timer_window->findChild<QProgressBar*>("progress_bar");
+    progress_bar->setMinimum(0);
+    progress_bar->setMaximum(max);
 }
 
 void TimerWindow::timerTimeout() {
