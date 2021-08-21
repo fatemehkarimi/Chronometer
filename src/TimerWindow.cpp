@@ -123,7 +123,7 @@ QTime TimerWindow::makeTimeInputStandard(int h, int m, int s) {
 
     // maximum supported time is 23 hour
     if(h >= 24){
-        QMessageBox msg_box;
+        QMessageBox msg_box(this->timer_window);
         msg_box.setText("Timer for more than 24 hours is not supported");
         msg_box.exec();
         return QTime(0, 0, 0);
