@@ -57,7 +57,8 @@ SOURCES       = ../src/main.cpp \
 		../src/TimerWindow.cpp \
 		../src/Timer.cpp \
 		../src/TimeController.cpp \
-		../src/ChronoView.cpp moc_TimerWindow.cpp \
+		../src/ChronoView.cpp \
+		../src/ChronoController.cpp moc_TimerWindow.cpp \
 		moc_Timer.cpp
 OBJECTS       = main.o \
 		MainWindow.o \
@@ -65,6 +66,7 @@ OBJECTS       = main.o \
 		Timer.o \
 		TimeController.o \
 		ChronoView.o \
+		ChronoController.o \
 		moc_TimerWindow.o \
 		moc_Timer.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -156,12 +158,14 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/headers/Timer.h \
 		../src/headers/Controller.h \
 		../src/headers/TimeController.h \
-		../src/headers/ChronoView.h ../src/main.cpp \
+		../src/headers/ChronoView.h \
+		../src/headers/ChronoController.h ../src/main.cpp \
 		../src/MainWindow.cpp \
 		../src/TimerWindow.cpp \
 		../src/Timer.cpp \
 		../src/TimeController.cpp \
-		../src/ChronoView.cpp
+		../src/ChronoView.cpp \
+		../src/ChronoController.cpp
 QMAKE_TARGET  = Chronometer
 DESTDIR       = 
 TARGET        = Chronometer
@@ -359,8 +363,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/headers/MainWindow.h ../src/headers/TimerWindow.h ../src/headers/Timer.h ../src/headers/Controller.h ../src/headers/TimeController.h ../src/headers/ChronoView.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp ../src/TimerWindow.cpp ../src/Timer.cpp ../src/TimeController.cpp ../src/ChronoView.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/headers/MainWindow.h ../src/headers/TimerWindow.h ../src/headers/Timer.h ../src/headers/Controller.h ../src/headers/TimeController.h ../src/headers/ChronoView.h ../src/headers/ChronoController.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp ../src/TimerWindow.cpp ../src/Timer.cpp ../src/TimeController.cpp ../src/ChronoView.cpp ../src/ChronoController.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -429,7 +433,9 @@ main.o: ../src/main.cpp ../src/headers/Timer.h \
 		../src/headers/MainWindow.h \
 		../src/headers/Controller.h \
 		../src/headers/TimerWindow.h \
-		../src/headers/TimeController.h
+		../src/headers/TimeController.h \
+		../src/headers/ChronoController.h \
+		../src/headers/ChronoView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 MainWindow.o: ../src/MainWindow.cpp ../src/headers/MainWindow.h \
@@ -456,8 +462,14 @@ TimeController.o: ../src/TimeController.cpp ../src/headers/TimeController.h \
 		../src/headers/TimerWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimeController.o ../src/TimeController.cpp
 
-ChronoView.o: ../src/ChronoView.cpp ../src/headers/ChronoView.h
+ChronoView.o: ../src/ChronoView.cpp ../src/headers/ChronoView.h \
+		../src/headers/Controller.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChronoView.o ../src/ChronoView.cpp
+
+ChronoController.o: ../src/ChronoController.cpp ../src/headers/ChronoController.h \
+		../src/headers/Controller.h \
+		../src/headers/ChronoView.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChronoController.o ../src/ChronoController.cpp
 
 moc_TimerWindow.o: moc_TimerWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TimerWindow.o moc_TimerWindow.cpp

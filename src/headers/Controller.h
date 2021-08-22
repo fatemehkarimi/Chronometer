@@ -1,7 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <QTime>
+#include <QtWidgets>
 
 class Controller
 {
