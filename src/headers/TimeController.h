@@ -10,7 +10,7 @@ class TimeController : public Controller, public TimerObserver
 {
 public:
     TimeController(Timer* t);
-    virtual void setTime(QTime t);
+    void setTime(QTime t);
     virtual void start();
     virtual void stop();
     virtual void reset();
