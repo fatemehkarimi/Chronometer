@@ -3,16 +3,22 @@
 
 #include <QtWidgets>
 #include "headers/Controller.h"
+#include "headers/TabWindow.h"
 
-class ChronoView
+class ChronoView : public QObject
 {
+    Q_OBJECT
 public:
     ChronoView(Controller* c);
     QWidget* getWindow();
 
+public slots:
+    void setFontSizeForWindow();
+
 private:
-    QWidget* window;
+    TabWindow* window;
     Controller* controller;
+    QMetaObject::Connection windowConnection;
 };
 
 #endif

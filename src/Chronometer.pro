@@ -7,7 +7,8 @@ HEADERS += headers/MainWindow.h \
            headers/Controller.h \
            headers/TimeController.h \
            headers/ChronoView.h \
-           headers/ChronoController.h
+           headers/ChronoController.h \
+           headers/TabWindow.h
 
 SOURCES += main.cpp \
            MainWindow.cpp \
@@ -15,4 +16,5 @@ SOURCES += main.cpp \
            Timer.cpp \
            TimeController.cpp \
            ChronoView.cpp \
-           ChronoController.cpp
+           ChronoController.cpp \
+           TabWindow.cpp

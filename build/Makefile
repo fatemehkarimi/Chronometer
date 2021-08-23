@@ -58,8 +58,11 @@ SOURCES       = ../src/main.cpp \
 		../src/Timer.cpp \
 		../src/TimeController.cpp \
 		../src/ChronoView.cpp \
-		../src/ChronoController.cpp moc_TimerWindow.cpp \
-		moc_Timer.cpp
+		../src/ChronoController.cpp \
+		../src/TabWindow.cpp moc_TimerWindow.cpp \
+		moc_Timer.cpp \
+		moc_ChronoView.cpp \
+		moc_TabWindow.cpp
 OBJECTS       = main.o \
 		MainWindow.o \
 		TimerWindow.o \
@@ -67,8 +70,11 @@ OBJECTS       = main.o \
 		TimeController.o \
 		ChronoView.o \
 		ChronoController.o \
+		TabWindow.o \
 		moc_TimerWindow.o \
-		moc_Timer.o
+		moc_Timer.o \
+		moc_ChronoView.o \
+		moc_TabWindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -159,13 +165,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../src/headers/Controller.h \
 		../src/headers/TimeController.h \
 		../src/headers/ChronoView.h \
-		../src/headers/ChronoController.h ../src/main.cpp \
+		../src/headers/ChronoController.h \
+		../src/headers/TabWindow.h ../src/main.cpp \
 		../src/MainWindow.cpp \
 		../src/TimerWindow.cpp \
 		../src/Timer.cpp \
 		../src/TimeController.cpp \
 		../src/ChronoView.cpp \
-		../src/ChronoController.cpp
+		../src/ChronoController.cpp \
+		../src/TabWindow.cpp
 QMAKE_TARGET  = Chronometer
 DESTDIR       = 
 TARGET        = Chronometer
@@ -363,8 +371,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/headers/MainWindow.h ../src/headers/TimerWindow.h ../src/headers/Timer.h ../src/headers/Controller.h ../src/headers/TimeController.h ../src/headers/ChronoView.h ../src/headers/ChronoController.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp ../src/TimerWindow.cpp ../src/Timer.cpp ../src/TimeController.cpp ../src/ChronoView.cpp ../src/ChronoController.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/headers/MainWindow.h ../src/headers/TimerWindow.h ../src/headers/Timer.h ../src/headers/Controller.h ../src/headers/TimeController.h ../src/headers/ChronoView.h ../src/headers/ChronoController.h ../src/headers/TabWindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../src/main.cpp ../src/MainWindow.cpp ../src/TimerWindow.cpp ../src/Timer.cpp ../src/TimeController.cpp ../src/ChronoView.cpp ../src/ChronoController.cpp ../src/TabWindow.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -395,9 +403,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_TimerWindow.cpp moc_Timer.cpp
+compiler_moc_header_make_all: moc_TimerWindow.cpp moc_Timer.cpp moc_ChronoView.cpp moc_TabWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_TimerWindow.cpp moc_Timer.cpp
+	-$(DEL_FILE) moc_TimerWindow.cpp moc_Timer.cpp moc_ChronoView.cpp moc_TabWindow.cpp
 moc_TimerWindow.cpp: ../src/headers/TimerWindow.h \
 		../src/headers/Timer.h \
 		../src/headers/TimerObserver.h \
@@ -411,6 +419,18 @@ moc_Timer.cpp: ../src/headers/Timer.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/fatemeh/WorkSpace/Chronometer/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/fatemeh/WorkSpace/Chronometer/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/headers/Timer.h -o moc_Timer.cpp
+
+moc_ChronoView.cpp: ../src/headers/ChronoView.h \
+		../src/headers/Controller.h \
+		../src/headers/TabWindow.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/fatemeh/WorkSpace/Chronometer/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/fatemeh/WorkSpace/Chronometer/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/headers/ChronoView.h -o moc_ChronoView.cpp
+
+moc_TabWindow.cpp: ../src/headers/TabWindow.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/fatemeh/WorkSpace/Chronometer/build/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/fatemeh/WorkSpace/Chronometer/src -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../src/headers/TabWindow.h -o moc_TabWindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -435,7 +455,8 @@ main.o: ../src/main.cpp ../src/headers/Timer.h \
 		../src/headers/TimerWindow.h \
 		../src/headers/TimeController.h \
 		../src/headers/ChronoController.h \
-		../src/headers/ChronoView.h
+		../src/headers/ChronoView.h \
+		../src/headers/TabWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 MainWindow.o: ../src/MainWindow.cpp ../src/headers/MainWindow.h \
@@ -463,19 +484,30 @@ TimeController.o: ../src/TimeController.cpp ../src/headers/TimeController.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimeController.o ../src/TimeController.cpp
 
 ChronoView.o: ../src/ChronoView.cpp ../src/headers/ChronoView.h \
-		../src/headers/Controller.h
+		../src/headers/Controller.h \
+		../src/headers/TabWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChronoView.o ../src/ChronoView.cpp
 
 ChronoController.o: ../src/ChronoController.cpp ../src/headers/ChronoController.h \
 		../src/headers/Controller.h \
-		../src/headers/ChronoView.h
+		../src/headers/ChronoView.h \
+		../src/headers/TabWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChronoController.o ../src/ChronoController.cpp
+
+TabWindow.o: ../src/TabWindow.cpp ../src/headers/TabWindow.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TabWindow.o ../src/TabWindow.cpp
 
 moc_TimerWindow.o: moc_TimerWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TimerWindow.o moc_TimerWindow.cpp
 
 moc_Timer.o: moc_Timer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Timer.o moc_Timer.cpp
+
+moc_ChronoView.o: moc_ChronoView.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ChronoView.o moc_ChronoView.cpp
+
+moc_TabWindow.o: moc_TabWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_TabWindow.o moc_TabWindow.cpp
 
 ####### Install
 
