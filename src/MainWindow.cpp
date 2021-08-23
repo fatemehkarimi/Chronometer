@@ -5,6 +5,7 @@ MainWindow::MainWindow(int width, int height, QString title) {
     this->window = new QTabWidget();
     this->window->resize(width, height);
     this->window->setWindowTitle(title);
+    this->window->setFixedSize(QSize(width, height));
 }
 
 void MainWindow::show() {
