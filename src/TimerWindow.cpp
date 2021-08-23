@@ -3,7 +3,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPushButton>
-#include <QRegExpValidator>
+#include <QRegularExpressionValidator>
 
 #include <Chronometer/TimerWindow.h>
 
@@ -98,8 +98,8 @@ QLineEdit* TimerWindow::setupTimeInput(QString object_name)
     input->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     input->setMaxLength(2);
     input->setAlignment(Qt::AlignCenter);
-    QRegExp rx("[0-9]*");
-    QRegExpValidator* validator = new QRegExpValidator(rx, input);
+    QRegularExpression rx("[0-9]*");
+    auto const validator = new QRegularExpressionValidator(rx, input);
     input->setValidator(validator);
     input->setText("00");
     return input;
