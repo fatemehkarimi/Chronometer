@@ -1,7 +1,9 @@
 #include <QLabel>
+#include <QStringList>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QTableWidget>
 #include "headers/ChronoView.h"
 
 ChronoView::ChronoView(Controller* c) {
@@ -23,15 +25,24 @@ ChronoView::ChronoView(Controller* c) {
     lap_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     reset_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    QTableWidget* record_table = new QTableWidget(this->window);
+    record_table->insertColumn(0);
+    record_table->insertColumn(0);
+    record_table->setHorizontalHeaderLabels(QStringList() << "" << "");
+    QHeaderView* header = record_table->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
+
     control_layout->addWidget(start_button);
     control_layout->addWidget(lap_button);
     control_layout->addWidget(reset_button);
     main_layout->addWidget(time_display);
     main_layout->addLayout(control_layout);
+    main_layout->addWidget(record_table);
     main_layout->addStretch(1);
 
     main_layout->setStretchFactor(time_display, 2);
     main_layout->setStretchFactor(control_layout, 1);
+    main_layout->setStretchFactor(record_table, 3);
 }
 
 QWidget* ChronoView::getWindow() {
