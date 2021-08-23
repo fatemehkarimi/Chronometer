@@ -1,12 +1,12 @@
-#ifndef CHRONOVIEW_H
-#define CHRONOVIEW_H
+#ifndef CHRONOMETER_CHRONOVIEW_H
+#define CHRONOMETER_CHRONOVIEW_H
 
 #include <QtWidgets>
-#include "headers/Controller.h"
-#include "headers/TabWindow.h"
 
-class ChronoView : public QObject
-{
+#include <Chronometer/Controller.h>
+#include <Chronometer/TabWindow.h>
+
+class ChronoView : public QObject {
     Q_OBJECT
 public:
     ChronoView(Controller* c);
@@ -21,4 +21,4 @@ private:
     QMetaObject::Connection windowConnection;
 };
 
-#endif
+#endif // CHRONOMETER_CHRONOVIEW_H

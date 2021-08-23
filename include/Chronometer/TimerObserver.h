@@ -1,5 +1,6 @@
-#ifndef TIMEROBSERVER_H
-#define TIMEROBSERVER_H
+#ifndef CHRONOMETER_TIMEROBSERVER_H
+#define CHRONOMETER_TIMEROBSERVER_H
+
 #include <QTime>
 
 class TimerObserver : public QObject {
@@ -8,4 +9,4 @@ public slots:
     virtual void timerTimeout() = 0;
 };
 
-#endif
+#endif // CHRONOMETER_TIMEROBSERVER_H

@@ -1,12 +1,13 @@
 #include <QApplication>
-#include "headers/Timer.h"
-#include "headers/MainWindow.h"
-#include "headers/TimeController.h"
-#include "headers/ChronoController.h"
+
+#include <Chronometer/ChronoController.h>
+#include <Chronometer/MainWindow.h>
+#include <Chronometer/TimeController.h>
+#include <Chronometer/Timer.h>
 
 using namespace std;
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
     MainWindow* window = new MainWindow(700, 700, "Chronometer");

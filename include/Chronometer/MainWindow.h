@@ -1,6 +1,10 @@
+#ifndef CHRONOMETER_MAINWINDOW_H
+#define CHRONOMETER_MAINWINDOW_H
+
 #include <QtWidgets>
-#include "headers/Controller.h"
-#include "headers/TimerWindow.h"
+
+#include <Chronometer/Controller.h>
+#include <Chronometer/TimerWindow.h>
 
 class MainWindow {
 public:
@@ -11,3 +15,5 @@ public:
 private:
     QTabWidget* window;
 };
+
+#endif // CHRONOMETER_MAINWINDOW_H

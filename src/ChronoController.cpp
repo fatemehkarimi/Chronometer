@@ -1,13 +1,15 @@
-#include "headers/ChronoController.h"
+#include <Chronometer/ChronoController.h>
 
-ChronoController::ChronoController() {
+ChronoController::ChronoController()
+{
     this->view = new ChronoView(this);
 }
 
-QWidget* ChronoController::getView() {
+QWidget* ChronoController::getView()
+{
     return this->view->getWindow();
 }
 
-void ChronoController::start() {}
-void ChronoController::stop() {}
-void ChronoController::reset() {}
+void ChronoController::start() { }
+void ChronoController::stop() { }
+void ChronoController::reset() { }
