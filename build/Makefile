@@ -409,6 +409,7 @@ compiler_moc_header_clean:
 moc_TimerWindow.cpp: ../src/headers/TimerWindow.h \
 		../src/headers/Timer.h \
 		../src/headers/TimerObserver.h \
+		../src/headers/TabWindow.h \
 		../src/headers/Controller.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -453,22 +454,24 @@ main.o: ../src/main.cpp ../src/headers/Timer.h \
 		../src/headers/MainWindow.h \
 		../src/headers/Controller.h \
 		../src/headers/TimerWindow.h \
+		../src/headers/TabWindow.h \
 		../src/headers/TimeController.h \
 		../src/headers/ChronoController.h \
-		../src/headers/ChronoView.h \
-		../src/headers/TabWindow.h
+		../src/headers/ChronoView.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 MainWindow.o: ../src/MainWindow.cpp ../src/headers/MainWindow.h \
 		../src/headers/Controller.h \
 		../src/headers/TimerWindow.h \
 		../src/headers/Timer.h \
-		../src/headers/TimerObserver.h
+		../src/headers/TimerObserver.h \
+		../src/headers/TabWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o ../src/MainWindow.cpp
 
 TimerWindow.o: ../src/TimerWindow.cpp ../src/headers/TimerWindow.h \
 		../src/headers/Timer.h \
 		../src/headers/TimerObserver.h \
+		../src/headers/TabWindow.h \
 		../src/headers/Controller.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimerWindow.o ../src/TimerWindow.cpp
 
@@ -480,7 +483,8 @@ TimeController.o: ../src/TimeController.cpp ../src/headers/TimeController.h \
 		../src/headers/Timer.h \
 		../src/headers/TimerObserver.h \
 		../src/headers/Controller.h \
-		../src/headers/TimerWindow.h
+		../src/headers/TimerWindow.h \
+		../src/headers/TabWindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o TimeController.o ../src/TimeController.cpp
 
 ChronoView.o: ../src/ChronoView.cpp ../src/headers/ChronoView.h \

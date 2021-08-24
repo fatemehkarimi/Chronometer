@@ -11,7 +11,10 @@ TimerWindow::TimerWindow(Controller* controller, Timer* timer) {
     this->controller = controller;
     this->timer->registerTimerObserver(this);
 
-    this->timer_window = new QWidget();
+    this->timer_window = new TabWindow();
+    this->windowConnection = QObject::connect(this->timer_window,
+            &TabWindow::windowDisplayed, this, &TimerWindow::setFontSizeForItems);
+
     QVBoxLayout* main_layout = new QVBoxLayout(this->timer_window);
     QGridLayout* time_layout = new QGridLayout();
     QHBoxLayout* timeline_layout = new QHBoxLayout();
@@ -187,5 +190,17 @@ void TimerWindow::setProgressBarMaximum(int max) {
     progress_bar->setMaximum(max);
 }
 
-void TimerWindow::timerTimeout() {
+void TimerWindow::timerTimeout() {}
+
+void TimerWindow::setFontSizeForItems() {
+    QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
+    QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
+    QLineEdit* second = this->timer_window->findChild <QLineEdit*>("second");
+
+    QFont f;
+    f.setPixelSize(hour->width() / 2);
+    hour->setFont(f);
+    minute->setFont(f);
+    second->setFont(f);
+    QObject::disconnect(this->windowConnection);
 }

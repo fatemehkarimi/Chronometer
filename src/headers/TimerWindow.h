@@ -5,6 +5,7 @@
 #include <QGridLayout>
 #include <QProgressBar>
 #include "headers/Timer.h"
+#include "headers/TabWindow.h"
 #include "headers/Controller.h"
 #include "headers/TimerObserver.h"
 
@@ -30,13 +31,15 @@ public:
 public slots:
     void handleStartButton();
     void handleResetButton();
+    void setFontSizeForItems();
     virtual void timeElapsed(QTime remaining);
     virtual void timerTimeout();
 
 private:
     Timer* timer;
-    QWidget* timer_window;
+    TabWindow* timer_window;
     Controller* controller;
+    QMetaObject::Connection windowConnection;
 };
 
 #endif
