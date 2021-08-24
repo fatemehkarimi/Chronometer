@@ -17,7 +17,7 @@ public:
     virtual void reset();
     virtual QWidget* getView();
     virtual void timerTimeout();
-    virtual void timeElapsed(QTime t) { }
+    virtual void timeElapsed(QTime) { }
 
 private:
     Timer* timer;
