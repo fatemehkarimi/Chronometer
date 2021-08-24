@@ -1,13 +1,14 @@
-#ifndef TIMECONTROLLER_H
-#define TIMECONTROLLER_H
+#ifndef CHRONOMETER_TIMECONTROLLER_H
+#define CHRONOMETER_TIMECONTROLLER_H
 
 #include <QTime>
-#include "headers/Timer.h"
-#include "headers/Controller.h"
-#include "headers/TimerWindow.h"
 
-class TimeController : public Controller, public TimerObserver
-{
+#include <Chronometer/Controller.h>
+#include <Chronometer/Timer.h>
+#include <Chronometer/TimerWindow.h>
+
+class TimeController : public Controller
+    , public TimerObserver {
 public:
     TimeController(Timer* t);
     void setTime(QTime t);
@@ -16,7 +17,7 @@ public:
     virtual void reset();
     virtual QWidget* getView();
     virtual void timerTimeout();
-    virtual void timeElapsed(QTime t) {}
+    virtual void timeElapsed(QTime t) { }
 
 private:
     Timer* timer;
@@ -26,4 +27,4 @@ private:
     QTime currentInterval = QTime(0, 0, 0);
 };
 
-#endif
+#endif // CHRONOMETER_TIMECONTROLLER_H

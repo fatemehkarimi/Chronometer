@@ -1,10 +1,9 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef CHRONOMETER_CONTROLLER_H
+#define CHRONOMETER_CONTROLLER_H
 
 #include <QtWidgets>
 
-class Controller
-{
+class Controller {
 public:
     virtual void start() = 0;
     virtual void stop() = 0;
@@ -12,4 +11,4 @@ public:
     virtual QWidget* getView() = 0;
 };
 
-#endif
+#endif // CHRONOMETER_CONTROLLER_H

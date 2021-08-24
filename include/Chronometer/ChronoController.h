@@ -1,10 +1,10 @@
-#ifndef CHRONOCONTROLLER_H
-#define CHRONOCONTROLLER_H
+#ifndef CHRONOMETER_CHRONOCONTROLLER_H
+#define CHRONOMETER_CHRONOCONTROLLER_H
 
-#include "headers/TimerObserver.h"
-#include "headers/Controller.h"
-#include "headers/ChronoView.h"
-#include "headers/Timer.h"
+#include <Chronometer/Timer.h>
+#include <Chronometer/ChronoView.h>
+#include <Chronometer/Controller.h>
+#include <Chronometer/TimerObserver.h>
 
 class ChronoController : public Controller, public TimerObserver
 {    

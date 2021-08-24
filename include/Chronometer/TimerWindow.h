@@ -1,16 +1,16 @@
-#ifndef TIMERWINDOW_H
-#define TIMERWINDOW_H
+#ifndef CHRONOMETER_TIMERWINDOW_H
+#define CHRONOMETER_TIMERWINDOW_H
 
-#include <QtWidgets>
 #include <QGridLayout>
 #include <QProgressBar>
-#include "headers/Timer.h"
-#include "headers/TabWindow.h"
-#include "headers/Controller.h"
-#include "headers/TimerObserver.h"
+#include <QtWidgets>
 
-class TimerWindow : public TimerObserver
-{
+#include <Chronometer/Timer.h>
+#include <Chronometer/TabWindow.h>
+#include <Chronometer/Controller.h>
+#include <Chronometer/TimerObserver.h>
+
+class TimerWindow : public TimerObserver {
     Q_OBJECT
 
 public:
@@ -42,4 +42,4 @@ private:
     QMetaObject::Connection windowConnection;
 };
 
-#endif
+#endif // CHRONOMETER_TIMERWINDOW_H

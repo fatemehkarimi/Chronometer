@@ -1,14 +1,13 @@
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef CHRONOMETER_TIMER_H
+#define CHRONOMETER_TIMER_H
 
 #include <QTime>
 #include <QTimer>
-#include <QThread>
 #include <QtWidgets>
-#include "headers/TimerObserver.h"
 
-class Timer : public QObject
-{
+#include <Chronometer/TimerObserver.h>
+
+class Timer : public QObject {
     Q_OBJECT
 
 public:
@@ -25,7 +24,7 @@ public slots:
 signals:
     void timeout();
     void remainingTime(QTime t);
-    
+
 private:
     const int UNIT_INTERVAL = 1000;
     int interval;
@@ -33,4 +32,4 @@ private:
     QTimer* base_timer;
 };
 
-#endif
+#endif // CHRONOMETER_TIMER_H

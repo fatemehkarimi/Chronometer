@@ -1,4 +1,5 @@
-#include "headers/ChronoController.h"
+#include <Chronometer/ChronoController.h>
+
 
 ChronoController::ChronoController(Timer* t) {
     this->timer = t;
@@ -6,7 +7,8 @@ ChronoController::ChronoController(Timer* t) {
     this->timer->registerTimerObserver(this);
 }
 
-QWidget* ChronoController::getView() {
+QWidget* ChronoController::getView()
+{
     return this->view->getWindow();
 }
 

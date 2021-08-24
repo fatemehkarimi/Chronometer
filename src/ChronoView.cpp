@@ -1,17 +1,19 @@
-#include <QLabel>
-#include <QStringList>
 #include <QHBoxLayout>
-#include <QVBoxLayout>
+#include <QLabel>
 #include <QPushButton>
+#include <QStringList>
 #include <QTableWidget>
-#include "headers/ChronoView.h"
+#include <QVBoxLayout>
 
-ChronoView::ChronoView(Controller* c) {
+#include <Chronometer/ChronoView.h>
+
+ChronoView::ChronoView(Controller* c)
+{
     this->window = new TabWindow();
     this->controller = c;
 
-    this->windowConnection = QObject::connect(this->window, 
-            &TabWindow::windowDisplayed, this, &ChronoView::setFontSizeForWindow);
+    this->windowConnection = QObject::connect(this->window,
+        &TabWindow::windowDisplayed, this, &ChronoView::setFontSizeForWindow);
 
     QVBoxLayout* main_layout = new QVBoxLayout(this->window);
     QHBoxLayout* control_layout = new QHBoxLayout();
@@ -37,7 +39,8 @@ ChronoView::ChronoView(Controller* c) {
     QTableWidget* record_table = new QTableWidget(this->window);
     record_table->insertColumn(0);
     record_table->insertColumn(0);
-    record_table->setHorizontalHeaderLabels(QStringList() << "" << "");
+    record_table->setHorizontalHeaderLabels(QStringList() << ""
+                                                          << "");
     QHeaderView* header = record_table->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -54,8 +57,9 @@ ChronoView::ChronoView(Controller* c) {
     main_layout->setStretchFactor(record_table, 3);
 }
 
-void ChronoView::setFontSizeForWindow() {
-    QLabel* time_label = this->window->findChild <QLabel*>("time_label");
+void ChronoView::setFontSizeForWindow()
+{
+    QLabel* time_label = this->window->findChild<QLabel*>("time_label");
     int height = time_label->height() * 0.5;
     QFont f;
     f.setPixelSize(height);
@@ -63,7 +67,8 @@ void ChronoView::setFontSizeForWindow() {
     QObject::disconnect(this->windowConnection);
 }
 
-QWidget* ChronoView::getWindow() {
+QWidget* ChronoView::getWindow()
+{
     return this->window;
 }
 
