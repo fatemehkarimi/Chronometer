@@ -26,6 +26,10 @@ ChronoView::ChronoView(Controller* c) {
     QPushButton* lap_button = new QPushButton("Lap", this->window);
     QPushButton* reset_button = new QPushButton("Reset", this->window);
 
+    QObject::connect(start_button, &QPushButton::clicked, this, &ChronoView::handleStartButton);
+    QObject::connect(lap_button, &QPushButton::clicked, this, &ChronoView::handleLapButton);
+    QObject::connect(reset_button, &QPushButton::clicked, this, &ChronoView::handleResetButton);
+
     start_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     lap_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     reset_button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -61,4 +65,16 @@ void ChronoView::setFontSizeForWindow() {
 
 QWidget* ChronoView::getWindow() {
     return this->window;
+}
+
+void ChronoView::handleStartButton() {
+    this->controller->start();
+}
+
+void ChronoView::handleLapButton() {
+    // this should be handled in view
+}
+
+void ChronoView::handleResetButton() {
+    this->controller->reset();
 }

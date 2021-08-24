@@ -13,6 +13,9 @@ public:
     QWidget* getWindow();
 
 public slots:
+    void handleStartButton();
+    void handleLapButton();
+    void handleResetButton();
     void setFontSizeForWindow();
 
 private:

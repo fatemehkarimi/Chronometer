@@ -493,9 +493,11 @@ ChronoView.o: ../src/ChronoView.cpp ../src/headers/ChronoView.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChronoView.o ../src/ChronoView.cpp
 
 ChronoController.o: ../src/ChronoController.cpp ../src/headers/ChronoController.h \
+		../src/headers/TimerObserver.h \
 		../src/headers/Controller.h \
 		../src/headers/ChronoView.h \
-		../src/headers/TabWindow.h
+		../src/headers/TabWindow.h \
+		../src/headers/Timer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ChronoController.o ../src/ChronoController.cpp
 
 TabWindow.o: ../src/TabWindow.cpp ../src/headers/TabWindow.h
