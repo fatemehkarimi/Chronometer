@@ -10,6 +10,7 @@ class ChronoView : public QObject {
     Q_OBJECT
 public:
     explicit ChronoView(Controller* c);
+    void setTimeLabel(QTime t);
     QWidget* getWindow();
 
 public slots:

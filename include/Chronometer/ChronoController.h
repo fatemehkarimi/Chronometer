@@ -21,7 +21,7 @@ private:
     Timer* timer;
     ChronoView* view;
     int secondsElapsed = 0;
-    int milisecondsElapsed = 0;
+    QTime second;
 };
 
 #endif // #include <Chronometer/ChronoView.h>

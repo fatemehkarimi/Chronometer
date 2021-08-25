@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
     // Chronometer
     Timer c_timer;
     ChronoController chrono_controller(&c_timer);
-
     window.registerWindow(chrono_controller.getView(), "Chronometer");
+    
     window.show();
 
     return app.exec();

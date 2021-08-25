@@ -67,6 +67,13 @@ void ChronoView::setFontSizeForWindow()
     QObject::disconnect(this->windowConnection);
 }
 
+void ChronoView::setTimeLabel(QTime t) {
+    QLabel* time_label = this->window->findChild <QLabel*>("time_label");
+    // qDebug() << t.hour() << " " << t.minute() << " " << t.second() << " " << t.msec();
+    QString time = t.toString("HH:mm:ss.zzz");
+    time_label->setText(time);
+}
+
 QWidget* ChronoView::getWindow()
 {
     return this->window;

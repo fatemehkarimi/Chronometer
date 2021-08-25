@@ -18,6 +18,14 @@ public:
     void clear();
     void registerTimerObserver(TimerObserver* observer);
 
+    enum UNIT {
+        MILISECOND = 10,
+        SECOND = 1000
+    };
+
+    void setTimerUnit(UNIT u);
+
+
 public slots:
     void timeElapsed();
 
@@ -26,7 +34,7 @@ signals:
     void remainingTime(QTime t);
 
 private:
-    const int UNIT_INTERVAL = 1000;
+    UNIT unit = UNIT::SECOND;
     int interval;
     int remaining_time = 0;
     QTimer* base_timer;

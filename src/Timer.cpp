@@ -10,7 +10,11 @@ Timer::Timer()
 void Timer::setInterval(QTime t)
 {
     int msecs = QTime(0, 0, 0).msecsTo(t);
-    this->interval = msecs / 1000;
+    this->interval = msecs / this->unit;
+}
+
+void Timer::setTimerUnit(UNIT u) {
+    this->unit = u;
 }
 
 void Timer::timeElapsed()
@@ -22,13 +26,13 @@ void Timer::timeElapsed()
     } else
         this->interval -= 1;
 
-    if (this->base_timer->interval() != UNIT_INTERVAL) {
-        this->base_timer->setInterval(UNIT_INTERVAL);
+    if (this->base_timer->interval() != unit) {
+        this->base_timer->setInterval(unit);
         this->base_timer->start();
     }
 
     QTime remaining(0, 0, 0);
-    remaining = remaining.addSecs(this->interval);
+    remaining = remaining.addMSecs(this->interval * this->unit);
     emit remainingTime(remaining);
 }
 
@@ -39,12 +43,12 @@ void Timer::start()
         this->base_timer->start();
         this->remaining_time = 0;
     } else {
-        this->base_timer->setInterval(UNIT_INTERVAL);
+        this->base_timer->setInterval(unit);
         this->base_timer->start();
     }
 
     QTime remaining(0, 0, 0);
-    remaining = remaining.addSecs(this->interval);
+    remaining = remaining.addMSecs(this->interval * this->unit);
     emit remainingTime(remaining);
 }
 
