@@ -9,7 +9,7 @@
 class ChronoView : public QObject {
     Q_OBJECT
 public:
-    ChronoView(Controller* c);
+    explicit ChronoView(Controller* c);
     QWidget* getWindow();
 
 public slots:

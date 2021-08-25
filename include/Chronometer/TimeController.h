@@ -10,14 +10,14 @@
 class TimeController : public Controller
     , public TimerObserver {
 public:
-    TimeController(Timer* t);
+    explicit TimeController(Timer* t);
     void setTime(QTime t);
-    virtual void start();
-    virtual void stop();
-    virtual void reset();
-    virtual QWidget* getView();
-    virtual void timerTimeout();
-    virtual void timeElapsed(QTime t) { }
+    void start() override;
+    void stop() override;
+    void reset() override;
+    QWidget* getView() override;
+    void timerTimeout() override;
+    void timeElapsed(QTime) override { }
 
 private:
     Timer* timer;

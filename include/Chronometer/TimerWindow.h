@@ -5,9 +5,9 @@
 #include <QProgressBar>
 #include <QtWidgets>
 
-#include <Chronometer/Timer.h>
-#include <Chronometer/TabWindow.h>
 #include <Chronometer/Controller.h>
+#include <Chronometer/TabWindow.h>
+#include <Chronometer/Timer.h>
 #include <Chronometer/TimerObserver.h>
 
 class TimerWindow : public TimerObserver {
@@ -32,8 +32,8 @@ public slots:
     void handleStartButton();
     void handleResetButton();
     void setFontSizeForItems();
-    virtual void timeElapsed(QTime remaining);
-    virtual void timerTimeout();
+    void timeElapsed(QTime remaining) override;
+    void timerTimeout() override;
 
 private:
     Timer* timer;
