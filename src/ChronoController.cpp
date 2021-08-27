@@ -8,6 +8,12 @@ ChronoController::ChronoController(Timer* t)
     this->timer->registerTimerObserver(this);
     this->second = QTime(0, 0, 0);
     this->second = second.addSecs(1);
+
+    QObject::connect(this, &ChronoController::startTimer, timer, &Timer::start);
+
+    this->timer_thread = new QThread();
+    this->timer_thread->start();
+    this->timer->moveToThread(timer_thread);
 }
 
 QWidget* ChronoController::getView()
@@ -17,8 +23,11 @@ QWidget* ChronoController::getView()
 
 void ChronoController::start()
 {
-    this->timer->setInterval(second);
-    this->timer->start();
+    QMetaObject::invokeMethod(this->timer, 
+                                "setInterval", Q_ARG(QTime, second));
+
+    diff = QDateTime::currentSecsSinceEpoch();
+    emit startTimer();
 }
 void ChronoController::stop()
 {
@@ -38,7 +47,9 @@ void ChronoController::timeElapsed(QTime t)
 
 void ChronoController::timerTimeout()
 {
+    qDebug() << "diff = " << diff - QDateTime::currentSecsSinceEpoch();
+    diff = QDateTime::currentMSecsSinceEpoch();
+
     ++this->secondsElapsed;
-    this->timer->setInterval(second);
-    this->timer->start();
+    this->start();
 }

@@ -19,6 +19,7 @@ void Timer::setTimerUnit(UNIT u) {
 
 void Timer::timeElapsed()
 {
+    qDebug() << "interval = " << interval;
     if (this->interval == 0) {
         this->base_timer->stop();
         emit timeout();

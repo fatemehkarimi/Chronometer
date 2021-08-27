@@ -12,14 +12,13 @@ class Timer : public QObject {
 
 public:
     Timer();
-    void setInterval(QTime t);
-    void start();
+    Q_INVOKABLE void setInterval(QTime t);
     void stop();
     void clear();
-    void registerTimerObserver(TimerObserver* observer);
+    void registerTimerObserver(TimerObserver* observer);    
 
     enum UNIT {
-        MILISECOND = 10,
+        MILISECOND = 100,
         SECOND = 1000
     };
 
@@ -27,6 +26,7 @@ public:
 
 
 public slots:
+    void start();
     void timeElapsed();
 
 signals:
