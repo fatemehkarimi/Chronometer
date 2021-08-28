@@ -205,7 +205,10 @@ void TimerWindow::setProgressBarMaximum(int max)
     progress_bar->setMaximum(max);
 }
 
-void TimerWindow::timerTimeout() {}
+void TimerWindow::timerTimeout() {
+    this->updateTime(QTime(0, 0, 0));
+    this->updateProgressBar(0);
+}
 
 void TimerWindow::setFontSizeForItems() {
     QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
