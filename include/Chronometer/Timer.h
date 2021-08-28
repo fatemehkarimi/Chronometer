@@ -24,7 +24,7 @@ public:
         SECOND = 1000
     };
 
-    void setTimerUnit(ACCURACY u);
+    void setTimerAccuracy(ACCURACY u);
 
 
 public slots:
@@ -36,7 +36,7 @@ signals:
     void remainingTime(QTime t);
 
 private:
-    ACCURACY unit = ACCURACY::SECOND;
+    ACCURACY acc = ACCURACY::SECOND;
     int interval;
     int remaining_time = 0;
     QTimer* base_timer;
