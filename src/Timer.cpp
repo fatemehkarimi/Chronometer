@@ -13,13 +13,12 @@ void Timer::setInterval(QTime t)
     this->interval = msecs / this->unit;
 }
 
-void Timer::setTimerUnit(UNIT u) {
+void Timer::setTimerUnit(ACCURACY u) {
     this->unit = u;
 }
 
 void Timer::timeElapsed()
 {
-    qDebug() << "interval = " << interval;
     if (this->interval == 0) {
         this->base_timer->stop();
         emit timeout();

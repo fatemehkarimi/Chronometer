@@ -4,7 +4,7 @@ ChronoController::ChronoController(Timer* t)
 {
     this->timer = t;
     this->view = new ChronoView(this);
-    this->timer->setTimerUnit(Timer::MILISECOND);
+    this->timer->setTimerUnit(Timer::MILISEC_1);
     this->timer->registerTimerObserver(this);
     this->second = QTime(0, 0, 0);
     this->second = second.addSecs(1);

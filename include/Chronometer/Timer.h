@@ -17,12 +17,14 @@ public:
     void clear();
     void registerTimerObserver(TimerObserver* observer);    
 
-    enum UNIT {
-        MILISECOND = 100,
+    enum ACCURACY {
+        MILISEC_1 = 1,
+        MILISEC_10 = 10,
+        MILISEC_100 = 100,
         SECOND = 1000
     };
 
-    void setTimerUnit(UNIT u);
+    void setTimerUnit(ACCURACY u);
 
 
 public slots:
@@ -34,7 +36,7 @@ signals:
     void remainingTime(QTime t);
 
 private:
-    UNIT unit = UNIT::SECOND;
+    ACCURACY unit = ACCURACY::SECOND;
     int interval;
     int remaining_time = 0;
     QTimer* base_timer;
