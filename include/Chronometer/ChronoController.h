@@ -26,11 +26,8 @@ signals:
 private:
     Timer* timer;
     ChronoView* view;
-    int secondsElapsed = 0;
-    QTime second;
     QThread* timer_thread;
-
-    int diff = 0;
+    QTime maximum_time;
 };
 
 #endif // #include <Chronometer/ChronoView.h>
