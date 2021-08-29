@@ -17,6 +17,10 @@ void Timer::setTimerAccuracy(ACCURACY a) {
     this->acc = a;
 }
 
+Timer::ACCURACY Timer::getAccuracy() {
+    return this->acc;
+}
+
 void Timer::timeElapsed()
 {
     this->interval -= 1;

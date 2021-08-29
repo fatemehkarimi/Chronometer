@@ -25,6 +25,7 @@ public:
     };
 
     void setTimerAccuracy(ACCURACY u);
+    ACCURACY getAccuracy();
 
 
 public slots:

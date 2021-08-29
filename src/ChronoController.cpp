@@ -3,7 +3,6 @@
 ChronoController::ChronoController(Timer* t)
 {
     this->timer = t;
-    this->view = new ChronoView(this);
     this->timer->setTimerAccuracy(Timer::MILISEC_10);
     this->timer->registerTimerObserver(this);
     this->maximum_time = QTime(23, 59, 59);
@@ -13,6 +12,8 @@ ChronoController::ChronoController(Timer* t)
     this->timer_thread = new QThread();
     this->timer_thread->start();
     this->timer->moveToThread(timer_thread);
+
+    this->view = new ChronoView(this, t);
 }
 
 QWidget* ChronoController::getView()

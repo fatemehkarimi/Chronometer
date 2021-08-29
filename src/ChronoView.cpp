@@ -7,10 +7,11 @@
 
 #include <Chronometer/ChronoView.h>
 
-ChronoView::ChronoView(Controller* c)
+ChronoView::ChronoView(Controller* c, Timer* t)
 {
     this->window = new TabWindow();
     this->controller = c;
+    this->timer = t;
 
     this->windowConnection = QObject::connect(this->window,
         &TabWindow::windowDisplayed, this, &ChronoView::setFontSizeForWindow);
@@ -19,7 +20,6 @@ ChronoView::ChronoView(Controller* c)
     QHBoxLayout* control_layout = new QHBoxLayout();
 
     QLabel* time_label = new QLabel();
-    time_label->setText("00:00:00.000");
     time_label->setObjectName("time_label");
     time_label->setAlignment(Qt::AlignCenter);
     time_label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -55,6 +55,8 @@ ChronoView::ChronoView(Controller* c)
     main_layout->setStretchFactor(time_label, 2);
     main_layout->setStretchFactor(control_layout, 1);
     main_layout->setStretchFactor(record_table, 3);
+
+    setTimeLabel(QTime(0, 0, 0));
 }
 
 void ChronoView::setFontSizeForWindow()
@@ -69,8 +71,15 @@ void ChronoView::setFontSizeForWindow()
 
 void ChronoView::setTimeLabel(QTime t) {
     QLabel* time_label = this->window->findChild <QLabel*>("time_label");
-    // qDebug() << t.hour() << " " << t.minute() << " " << t.second() << " " << t.msec();
     QString time = t.toString("HH:mm:ss.zzz");
+    Timer::ACCURACY acc = this->timer->getAccuracy();
+    if(acc == Timer::SECOND)
+        time.chop(4);
+    else if(acc == Timer::MILISEC_100)
+        time.chop(2);
+    else if(acc == Timer::MILISEC_10)
+        time.chop(1);
+    
     time_label->setText(time);
 }
 
