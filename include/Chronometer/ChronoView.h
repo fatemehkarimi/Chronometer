@@ -11,6 +11,7 @@ class ChronoView : public QObject {
 public:
     explicit ChronoView(Controller* c, Timer* t);
     void setTimeLabel(QTime t);
+    QString getTimeString(QTime t);
     QWidget* getWindow();
 
 public slots:
@@ -24,6 +25,8 @@ private:
     TabWindow* window;
     Controller* controller;
     QMetaObject::Connection windowConnection;
+    QTime last_updated_time = QTime(0, 0, 0);
+    QTime last_recorded_lap = QTime(0, 0, 0);
 };
 
 #endif // CHRONOMETER_CHRONOVIEW_H
