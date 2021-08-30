@@ -22,12 +22,15 @@ public:
 
 signals:
     void startTimer();
+    void stopTimer();
 
 private:
     Timer* timer;
     ChronoView* view;
     QThread* timer_thread;
     QTime maximum_time;
+    bool isStartCommand = true;
+    bool isTimerPending = false;
 };
 
 #endif // #include <Chronometer/ChronoView.h>

@@ -25,8 +25,11 @@ ChronoView::ChronoView(Controller* c, Timer* t)
     time_label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QPushButton* start_button = new QPushButton("Start", this->window);
+    start_button->setObjectName("start_button");
+
     QPushButton* lap_button = new QPushButton("Lap", this->window);
     QPushButton* reset_button = new QPushButton("Reset", this->window);
+
 
     QObject::connect(start_button, &QPushButton::clicked, this, &ChronoView::handleStartButton);
     QObject::connect(lap_button, &QPushButton::clicked, this, &ChronoView::handleLapButton);
@@ -115,4 +118,14 @@ void ChronoView::handleLapButton() {
 
 void ChronoView::handleResetButton() {
     this->controller->reset();
+}
+
+void ChronoView::setStartButton() {
+    QPushButton* btn = this->window->findChild<QPushButton*>("start_button");
+    btn->setText("Start");
+}
+
+void ChronoView::setStopButton() {
+    QPushButton* btn = this->window->findChild<QPushButton*>("start_button");
+    btn->setText("Stop");
 }

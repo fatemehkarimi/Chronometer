@@ -8,6 +8,7 @@ ChronoController::ChronoController(Timer* t)
     this->maximum_time = QTime(23, 59, 59);
 
     QObject::connect(this, &ChronoController::startTimer, timer, &Timer::start);
+    QObject::connect(this, &ChronoController::stopTimer, timer, &Timer::stop);
 
     this->timer_thread = new QThread();
     this->timer_thread->start();
@@ -23,9 +24,24 @@ QWidget* ChronoController::getView()
 
 void ChronoController::start()
 {
-    QMetaObject::invokeMethod(this->timer, 
-                                "setInterval", Q_ARG(QTime, maximum_time));
-    emit startTimer();
+    if(!isTimerPending) {
+        QMetaObject::invokeMethod(this->timer, "setInterval", Q_ARG(QTime, maximum_time));
+        this->view->setStopButton();
+        isTimerPending = true;
+        isStartCommand = false;
+        emit startTimer();
+    }
+    else {
+        if(isStartCommand) {
+            this->view->setStopButton();
+            emit startTimer();
+        }
+        else {
+            this->view->setStartButton(); 
+            emit stopTimer();
+        }
+        isStartCommand = !isStartCommand;
+    }
 }
 void ChronoController::stop()
 {

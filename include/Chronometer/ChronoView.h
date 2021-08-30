@@ -10,9 +10,12 @@ class ChronoView : public QObject {
     Q_OBJECT
 public:
     explicit ChronoView(Controller* c, Timer* t);
-    void setTimeLabel(QTime t);
-    QString getTimeString(QTime t);
     QWidget* getWindow();
+    QString getTimeString(QTime t);
+    void setTimeLabel(QTime t);
+    void setStartButton();
+    void setStopButton();
+
 
 public slots:
     void handleStartButton();
