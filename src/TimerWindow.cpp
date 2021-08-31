@@ -1,10 +1,15 @@
+#include <QFocusEvent>
 #include <QHBoxLayout>
+#include <QKeyEvent>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
+#include <QMouseEvent>
 #include <QPushButton>
 #include <QRegularExpressionValidator>
+#include <QWheelEvent>
 
+#include <Chronometer/Components/TimeLineEdit.h>
 #include <Chronometer/TimerWindow.h>
 
 TimerWindow::TimerWindow(Controller* controller, Timer* timer)
@@ -15,19 +20,21 @@ TimerWindow::TimerWindow(Controller* controller, Timer* timer)
 
     this->timer_window = new TabWindow();
     this->windowConnection = QObject::connect(this->timer_window,
-            &TabWindow::windowDisplayed, this, &TimerWindow::setFontSizeForItems);
+        &TabWindow::windowDisplayed, this, &TimerWindow::setFontSizeForItems);
 
     QVBoxLayout* main_layout = new QVBoxLayout(this->timer_window);
     QGridLayout* time_layout = new QGridLayout();
     QHBoxLayout* timeline_layout = new QHBoxLayout();
     QHBoxLayout* control_layout = new QHBoxLayout();
 
-    QLineEdit* hour = this->setupTimeInput("hour");
-    QLineEdit* minute = this->setupTimeInput("minute");
-    QLineEdit* second = this->setupTimeInput("second");
+    timeFields = {
+        new TimeLineEdit("hour"),
+        new TimeLineEdit("minute"),
+        new TimeLineEdit("second")
+    };
 
-    QLabel* semi_colon1 = new QLabel(":");
-    QLabel* semi_colon2 = new QLabel(":");
+    QLabel* semi_colon1 = this->setupLabel(":");
+    QLabel* semi_colon2 = this->setupLabel(":");
 
     QProgressBar* time_line = new QProgressBar(this->timer_window);
     time_line->setObjectName("progress_bar");
@@ -51,9 +58,9 @@ TimerWindow::TimerWindow(Controller* controller, Timer* timer)
 
     this->designTimeLayout(time_layout);
 
-    time_layout->addWidget(hour, 1, 1);
-    time_layout->addWidget(minute, 1, 3);
-    time_layout->addWidget(second, 1, 5);
+    time_layout->addWidget(timeFields.h, 1, 1);
+    time_layout->addWidget(timeFields.m, 1, 3);
+    time_layout->addWidget(timeFields.s, 1, 5);
     time_layout->addWidget(semi_colon1, 1, 2);
     time_layout->addWidget(semi_colon2, 1, 4);
 
@@ -94,18 +101,12 @@ void TimerWindow::designTimeLayout(QGridLayout* time_layout)
     time_layout->setColumnStretch(6, 3);
 }
 
-QLineEdit* TimerWindow::setupTimeInput(QString object_name)
+QLabel* TimerWindow::setupLabel(const QString& label)
 {
-    QLineEdit* input = new QLineEdit();
-    input->setObjectName(object_name);
-    input->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    input->setMaxLength(2);
-    input->setAlignment(Qt::AlignCenter);
-    QRegularExpression rx("[0-9]*");
-    auto const validator = new QRegularExpressionValidator(rx, input);
-    input->setValidator(validator);
-    input->setText("00");
-    return input;
+    auto const result = new QLabel(label);
+    QFont const font({ "Monospace", "Serif" }, 24, 24, true);
+    result->setFont(font);
+    return result;
 }
 
 QTime TimerWindow::readInput()
@@ -142,6 +143,7 @@ QTime TimerWindow::makeTimeInputStandard(int h, int m, int s)
 void TimerWindow::handleStartButton()
 {
     this->controller->start();
+    setTimeFieldsReadOnly(controller->state() == Controller::State::Stopped);
 }
 
 void TimerWindow::handleResetButton()
@@ -205,15 +207,24 @@ void TimerWindow::setProgressBarMaximum(int max)
     progress_bar->setMaximum(max);
 }
 
-void TimerWindow::timerTimeout() {
+void TimerWindow::timerTimeout()
+{
     this->updateTime(QTime(0, 0, 0));
     this->updateProgressBar(0);
 }
 
-void TimerWindow::setFontSizeForItems() {
-    QLineEdit* hour = this->timer_window->findChild <QLineEdit*>("hour");
-    QLineEdit* minute = this->timer_window->findChild <QLineEdit*>("minute");
-    QLineEdit* second = this->timer_window->findChild <QLineEdit*>("second");
+void TimerWindow::setTimeFieldsReadOnly(bool const state)
+{
+    timeFields.h->setReadOnly(state);
+    timeFields.m->setReadOnly(state);
+    timeFields.s->setReadOnly(state);
+}
+
+void TimerWindow::setFontSizeForItems()
+{
+    QLineEdit* hour = this->timer_window->findChild<QLineEdit*>("hour");
+    QLineEdit* minute = this->timer_window->findChild<QLineEdit*>("minute");
+    QLineEdit* second = this->timer_window->findChild<QLineEdit*>("second");
 
     QFont f;
     f.setPixelSize(hour->width() / 2);

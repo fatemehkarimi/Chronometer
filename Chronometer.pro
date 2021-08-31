@@ -4,7 +4,9 @@ TARGET = Chronometer
 
 INCLUDEPATH += $$PWD/include/
 HEADERS += $$PWD/include/$$TARGET/*.h
+HEADERS += $$PWD/include/$$TARGET/Components/*.h
 SOURCES += $$PWD/src/*.cpp
+SOURCES += $$PWD/src/Components/*.cpp
 
 unix {
   # Enable ASAN to take care of memory operations.

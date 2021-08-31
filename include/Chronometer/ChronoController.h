@@ -16,6 +16,7 @@ public:
     void start() override;
     void stop() override;
     void reset() override;
+    State state() const override;
     QWidget* getView() override;
     void timerTimeout() override;
     void timeElapsed(QTime t) override;

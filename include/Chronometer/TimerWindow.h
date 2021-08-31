@@ -10,6 +10,8 @@
 #include <Chronometer/Timer.h>
 #include <Chronometer/TimerObserver.h>
 
+class TimeLineEdit;
+
 class TimerWindow : public TimerObserver {
     Q_OBJECT
 
@@ -17,7 +19,7 @@ public:
     TimerWindow(Controller* controller, Timer* timer);
     QWidget* getWindow();
     void designTimeLayout(QGridLayout* time_layout);
-    QLineEdit* setupTimeInput(QString object_name);
+    QLabel* setupLabel(QString const& label);
     QTime readInput();
     QTime makeTimeInputStandard(int h, int m, int s);
     void updateTime(QTime t);
@@ -36,7 +38,18 @@ public slots:
     void timerTimeout() override;
 
 private:
+    void setTimeFieldsReadOnly(bool const state);
+
+private:
+    struct TimeFields final {
+        TimeLineEdit* h;
+        TimeLineEdit* m;
+        TimeLineEdit* s;
+    };
+
+private:
     Timer* timer;
+    TimeFields timeFields;
     TabWindow* timer_window;
     Controller* controller;
     QMetaObject::Connection windowConnection;

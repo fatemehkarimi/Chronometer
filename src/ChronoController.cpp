@@ -25,20 +25,18 @@ QWidget* ChronoController::getView()
 
 void ChronoController::start()
 {
-    if(!isTimerPending) {
+    if (!isTimerPending) {
         QMetaObject::invokeMethod(this->timer, "setInterval", Q_ARG(QTime, maximum_time));
         this->view->setStopButton();
         isTimerPending = true;
         isStartCommand = false;
         emit startTimer();
-    }
-    else {
-        if(isStartCommand) {
+    } else {
+        if (isStartCommand) {
             this->view->setStopButton();
             emit startTimer();
-        }
-        else {
-            this->view->setStartButton(); 
+        } else {
+            this->view->setStartButton();
             emit stopTimer();
         }
         isStartCommand = !isStartCommand;
@@ -61,9 +59,14 @@ void ChronoController::reset()
     this->view->clearTable();
 }
 
+Controller::State ChronoController::state() const
+{
+    return isStartCommand ? State::Running : State::Stopped;
+}
+
 void ChronoController::timeElapsed(QTime t)
 {
-    if(!isTimerPending)
+    if (!isTimerPending)
         return;
 
     int e = t.msecsTo(maximum_time);
