@@ -23,6 +23,7 @@ public:
 signals:
     void startTimer();
     void stopTimer();
+    void resetTimer();
 
 private:
     Timer* timer;

@@ -3,12 +3,13 @@
 ChronoController::ChronoController(Timer* t)
 {
     this->timer = t;
-    this->timer->setTimerAccuracy(Timer::MILISEC_10);
+    this->timer->setTimerAccuracy(Timer::MILISEC_100);
     this->timer->registerTimerObserver(this);
     this->maximum_time = QTime(23, 59, 59);
 
     QObject::connect(this, &ChronoController::startTimer, timer, &Timer::start);
     QObject::connect(this, &ChronoController::stopTimer, timer, &Timer::stop);
+    QObject::connect(this, &ChronoController::resetTimer, timer, &Timer::clear);
 
     this->timer_thread = new QThread();
     this->timer_thread->start();
@@ -46,12 +47,25 @@ void ChronoController::start()
 void ChronoController::stop()
 {
 }
+
 void ChronoController::reset()
 {
+    emit stopTimer();
+    emit resetTimer();
+    QMetaObject::invokeMethod(this->timer, "setInterval", Q_ARG(QTime, maximum_time));
+    this->isStartCommand = true;
+    this->isTimerPending = false;
+    this->view->setTimeLabel(QTime(0, 0, 0));
+    this->view->setStartButton();
+    // clear table
+    // reset lap
 }
 
 void ChronoController::timeElapsed(QTime t)
 {
+    if(!isTimerPending)
+        return;
+
     int e = t.msecsTo(maximum_time);
     QTime elapsed(0, 0, 0);
     elapsed = elapsed.addMSecs(e);

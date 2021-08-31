@@ -75,14 +75,14 @@ void ChronoView::setFontSizeForWindow()
 }
 
 QString ChronoView::getTimeString(QTime t) {
-QString time = t.toString("HH:mm:ss.zzz");
+    QString time = t.toString("HH:mm:ss.zzz");
     Timer::ACCURACY acc = this->timer->getAccuracy();
     if(acc == Timer::SECOND)
         time.chop(4);
     else if(acc == Timer::MILISEC_100)
-        time.chop(2);
-    else if(acc == Timer::MILISEC_10)
         time.chop(1);
+    else if(acc == Timer::MILISEC_10)
+        time.chop(2);
     return time;
 }
 
