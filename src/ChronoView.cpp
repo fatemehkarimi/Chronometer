@@ -129,3 +129,13 @@ void ChronoView::setStopButton() {
     QPushButton* btn = this->window->findChild<QPushButton*>("start_button");
     btn->setText("Stop");
 }
+
+void ChronoView::resetLap() {
+    last_updated_time = last_recorded_lap = QTime(0, 0, 0);
+}
+
+void ChronoView::clearTable() {
+    QTableWidget* table = this->window->findChild <QTableWidget*>("table");
+    table->setRowCount(0);
+    table->clearContents();
+}

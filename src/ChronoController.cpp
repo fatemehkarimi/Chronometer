@@ -57,8 +57,8 @@ void ChronoController::reset()
     this->isTimerPending = false;
     this->view->setTimeLabel(QTime(0, 0, 0));
     this->view->setStartButton();
-    // clear table
-    // reset lap
+    this->view->resetLap();
+    this->view->clearTable();
 }
 
 void ChronoController::timeElapsed(QTime t)

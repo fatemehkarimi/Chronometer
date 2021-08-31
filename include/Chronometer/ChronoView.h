@@ -15,6 +15,8 @@ public:
     void setTimeLabel(QTime t);
     void setStartButton();
     void setStopButton();
+    void resetLap();
+    void clearTable();
 
 
 public slots:
