@@ -8,6 +8,7 @@
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
+    app.setWindowIcon(QIcon("../resources/logo.png"));
     MainWindow window(700, 700, "Chronometer");
 
     // Timer
