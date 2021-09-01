@@ -104,7 +104,10 @@ void TimerWindow::designTimeLayout(QGridLayout* time_layout)
 QLabel* TimerWindow::setupLabel(const QString& label)
 {
     auto const result = new QLabel(label);
-    QFont const font({ "Monospace", "Serif" }, 24, 24, true);
+    QFont font;
+    font.setPointSize(24);
+    font.setBold(true);
+
     result->setFont(font);
     return result;
 }
