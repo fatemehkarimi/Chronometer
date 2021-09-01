@@ -57,11 +57,6 @@ void TimeController::reset()
     timer_window->resetProgressBar();
 }
 
-Controller::State TimeController::state() const
-{
-    return isStartCommand ? State::Running : State::Stopped;
-}
-
 QWidget* TimeController::getView()
 {
     return this->timer_window->getWindow();

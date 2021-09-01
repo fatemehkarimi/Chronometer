@@ -143,7 +143,6 @@ QTime TimerWindow::makeTimeInputStandard(int h, int m, int s)
 void TimerWindow::handleStartButton()
 {
     this->controller->start();
-    setTimeFieldsReadOnly(controller->state() == Controller::State::Stopped);
 }
 
 void TimerWindow::handleResetButton()
@@ -169,12 +168,16 @@ void TimerWindow::setStartButton()
 {
     QPushButton* start_button = this->timer_window->findChild<QPushButton*>("start");
     start_button->setText("Start");
+
+    setTimeFieldsReadOnly(false);
 }
 
 void TimerWindow::setStopButton()
 {
     QPushButton* start_button = this->timer_window->findChild<QPushButton*>("start");
     start_button->setText("Stop");
+
+    setTimeFieldsReadOnly(true);
 }
 
 void TimerWindow::updateTime(QTime t)

@@ -59,11 +59,6 @@ void ChronoController::reset()
     this->view->clearTable();
 }
 
-Controller::State ChronoController::state() const
-{
-    return isStartCommand ? State::Running : State::Stopped;
-}
-
 void ChronoController::timeElapsed(QTime t)
 {
     if (!isTimerPending)
