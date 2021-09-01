@@ -9,7 +9,12 @@ TimeLineEdit::TimeLineEdit(QString const& object_name)
     setMaxLength(2);
     setAlignment(Qt::AlignCenter);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    setFont(QFont({ "Serif", "DejaVu" }, 24, 24, true));
+
+    QFont font;
+    font.setPointSize(24);
+    font.setBold(true);
+
+    setFont(font);
     setMouseTracking(true);
 
     setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9]*")));
